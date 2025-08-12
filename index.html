@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>ThePoggerSquad Shop — Product Portal</title>
 <meta name="theme-color" content="#070914"/>
-
-<!-- Retro + readable fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Exo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
@@ -21,7 +19,7 @@
   html,body{height:100%}
   body{
     margin:0; color:var(--ink);
-    font:16px/1.55 "Exo 2", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    font:16px/1.6 "Exo 2", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
     background:var(--bg);
     overflow-x:hidden; overflow-y:auto;
     text-rendering:optimizeLegibility;
@@ -51,9 +49,9 @@
   @keyframes scrollgrid{ 0%{background-position:0 0,0 0} 100%{background-position:0 260px,220px 0} }
 
   /* ===== Frame ===== */
-  .wrap{position:relative; width:min(1020px,92vw); margin:0 auto; min-height:100%; display:grid; place-items:center}
+  .wrap{position:relative; width:min(1040px,92vw); margin:0 auto; min-height:100%; display:grid; place-items:center}
   .shell{
-    width:100%; max-width:1020px; margin:12px auto;
+    width:100%; max-width:1040px; margin:12px auto;
     background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
     border:1px solid rgba(255,255,255,.14);
     border-radius:22px; box-shadow:0 30px 120px rgba(0,0,0,.6);
@@ -135,53 +133,51 @@
   .btnRow{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end}
 
   .muted{color:var(--muted); font-size:14px}
-  .hr{height:1px; background:linear-gradient(90deg,transparent, rgba(255,255,255,.18), transparent); margin:12px 0}
   .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
   .grid{display:grid; gap:12px}
-
-  .resultCard{transform-origin:50% 0; animation:pop .35s cubic-bezier(.2,.8,.2,1)}
-  @keyframes pop{from{opacity:.2; transform:scale(.985)} to{opacity:1; transform:scale(1)}}
   .bigUnit{font:900 24px/1 "Orbitron", ui-monospace; letter-spacing:.6px}
 
-  /* ===== Product layout ===== */
-  .product-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:16px}
-  @media (max-width:900px){ .product-grid{ grid-template-columns:1fr } }
+  /* ===== Product layout (rebuilt) ===== */
+  .product{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:16px; box-shadow:0 10px 28px rgba(10,14,40,.6), inset 0 0 0 1px rgba(255,255,255,.02)}
+  .product-header{
+    display:flex; gap:12px; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; margin-bottom:10px
+  }
+  .product-title{margin:0; font-family:Orbitron; letter-spacing:.4px}
+  .product-body{display:grid; grid-template-columns:1.2fr .8fr; gap:18px; min-width:0}
+  .product-main{min-width:0}
+  .product-aside{min-width:0}
+  @media (max-width:960px){ .product-body{grid-template-columns:1fr} }
+
+  .section{margin-top:14px; padding-top:12px; border-top:1px solid var(--line)}
+  .section h3{margin:0 0 6px; font-family:Orbitron; letter-spacing:.3px}
 
   /* Gallery */
-  .gallery{display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px}
-  .thumb{position:relative; border-radius:12px; overflow:hidden; background:#0b1431; border:1px solid rgba(255,255,255,.1); cursor:pointer}
-  .thumb img{width:100%; height:120px; object-fit:cover; display:block}
+  .gallery{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px}
+  .thumb{position:relative; border-radius:12px; overflow:hidden; background:#0b1431; border:1px solid rgba(255,255,255,.12); cursor:pointer}
+  .thumb img{width:100%; height:auto; display:block; aspect-ratio:4/3; object-fit:cover}
   .thumb .badge{position:absolute; bottom:6px; right:6px; font-size:11px; background:rgba(0,0,0,.45); padding:2px 6px; border-radius:999px}
-  .thumb .play{position:absolute; inset:0; display:grid; place-items:center; background: radial-gradient(circle at 50% 50%, rgba(0,0,0,.0), rgba(0,0,0,.25));}
+  .thumb .play{position:absolute; inset:0; display:grid; place-items:center; background: radial-gradient(circle at 50% 50%, rgba(0,0,0,.0), rgba(0,0,0,.25))}
   .thumb .play svg{width:34px;height:34px; filter: drop-shadow(0 2px 8px rgba(0,0,0,.5))}
 
-  /* Feature animated text */
+  /* Features animated text */
   .features{display:grid; gap:6px}
   .feature-anim{
     font-weight:800;
     background:linear-gradient(90deg, var(--a), var(--b), var(--c), var(--d), var(--a));
-    background-size:300% 100%;
-    -webkit-background-clip:text; background-clip:text; color:transparent;
+    background-size:300% 100%; -webkit-background-clip:text; background-clip:text; color:transparent;
     animation:shimmer 6s linear infinite; letter-spacing:.25px;
   }
   @keyframes shimmer{ 0%{background-position:0% 50%} 100%{background-position:100% 50%} }
 
   /* Sidebar cards */
-  .asideCard{
-    background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:12px;
-    box-shadow: 0 6px 20px rgba(10,14,40,.5), inset 0 0 0 1px rgba(255,255,255,.02);
-    backdrop-filter: blur(10px);
-  }
+  .asideCard{background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)); border:1px solid var(--line); border-radius:14px; padding:12px; box-shadow: 0 6px 20px rgba(10,14,40,.5), inset 0 0 0 1px rgba(255,255,255,.02)}
+  .asideCard > strong{font-family:Orbitron}
+  .divider{height:1px; background:linear-gradient(90deg,transparent, rgba(255,255,255,.18), transparent); margin:10px 0}
   .tags{display:flex; flex-wrap:wrap; gap:8px}
-  .tag{
-    font-size:12px; padding:6px 10px; border-radius:999px;
-    border:1px solid rgba(255,255,255,.18);
-    background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
-    color:#dfe7ff; letter-spacing:.3px; transition: box-shadow .2s ease, transform .05s ease;
-  }
+  .tag{font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02)); color:#dfe7ff; letter-spacing:.3px; transition: box-shadow .2s ease, transform .05s ease}
   .tag:hover{ box-shadow:0 0 12px rgba(122,160,255,.35); transform:translateY(-1px) }
   .resList{display:flex; flex-direction:column; gap:8px}
-  .resList a{ text-decoration:none }
+  .resList a{text-decoration:none}
 
   /* Lightbox */
   .lightbox{position:fixed; inset:0; background:rgba(0,0,0,.65); display:none; align-items:center; justify-content:center; z-index:99; padding:16px}
@@ -193,26 +189,16 @@
   .lightbox .top{display:flex; align-items:center; justify-content:space-between; padding:10px 12px}
   .x{background:transparent; border:1px solid rgba(255,255,255,.25); color:#fff; padding:6px 10px; border-radius:10px; cursor:pointer}
 
-  /* ===== About page polish ===== */
-  .aboutWrap{display:grid; gap:14px}
-  .aboutHero{
-    background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-    border:1px solid var(--line); border-radius:16px; padding:16px;
-    box-shadow: 0 10px 28px rgba(10,14,40,.6), inset 0 0 0 1px rgba(255,255,255,.02);
-  }
+  /* ===== About page (spacious) ===== */
+  .aboutWrap{display:grid; gap:16px}
+  .aboutHero{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid var(--line); border-radius:16px; padding:18px}
   .aboutHero h2{margin:0 0 6px; font-family:Orbitron; letter-spacing:.4px}
-  .aboutGrid{
-    display:grid; gap:12px; grid-template-columns:repeat(3,1fr);
-  }
-  .aboutCard{
-    background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:14px;
-    box-shadow: 0 6px 20px rgba(10,14,40,.5), inset 0 0 0 1px rgba(255,255,255,.02);
-  }
+  .aboutGrid{display:grid; gap:14px; grid-template-columns:repeat(3,1fr)}
+  .aboutCard{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:14px; box-shadow:0 6px 20px rgba(10,14,40,.5), inset 0 0 0 1px rgba(255,255,255,.02)}
   .aboutCard h3{margin:0 0 8px; font-family:Orbitron; letter-spacing:.3px}
   .aboutList{margin:0; padding-left:18px}
-  @media (max-width:900px){
-    .aboutGrid{ grid-template-columns:1fr; }
-  }
+  .aboutFoot{display:flex; gap:10px; flex-wrap:wrap}
+  @media (max-width:960px){ .aboutGrid{grid-template-columns:1fr} }
 
   .visually-hidden{position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; border:0; padding:0; margin:-1px;}
 </style>
@@ -256,7 +242,7 @@
               <strong style="font-family:Orbitron">Generate Codes</strong>
               <span class="muted">Select product & unit number</span>
             </div>
-            <div class="hr"></div>
+            <div class="divider"></div>
             <div class="row" style="gap:12px">
               <label style="flex:1">Product
                 <select id="productSelect"></select>
@@ -271,18 +257,18 @@
         <div class="entry">
           <div style="width:100%">
             <strong style="font-family:Orbitron">Codes</strong>
-            <div class="hr"></div>
+            <div class="divider"></div>
             <div id="codesOut" style="background:#0b1431; border:1px dashed rgba(255,255,255,.25); border-radius:12px; padding:12px; font:13px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color:#d7e7ff; white-space:pre-wrap"></div>
           </div>
         </div>
       </section>
 
-      <!-- ABOUT (polished) -->
+      <!-- ABOUT -->
       <section id="about" aria-labelledby="aboutTitle">
         <div class="aboutWrap">
           <div class="aboutHero">
             <h2 id="aboutTitle">About ThePoggerSquad Shop</h2>
-            <div>Retro vibes, modern design. We make small-batch gear, 3D prints, and prints that feel premium without the price tag.</div>
+            <p style="margin:0">Retro vibes, modern design. We build small-batch gear, 3D prints, and art that feels premium without the price tag.</p>
           </div>
 
           <div class="aboutGrid">
@@ -290,44 +276,44 @@
               <h3>What this portal does</h3>
               <ul class="aboutList">
                 <li>Shows verified product info & media for your exact unit.</li>
-                <li>Gives you quick **How to Use** and care tips.</li>
+                <li>Gives you quick <strong>How to Use</strong> and care tips.</li>
                 <li>Links you to perks, downloads, and support.</li>
               </ul>
             </div>
-
             <div class="aboutCard">
-              <h3>Where to find your code</h3>
+              <h3>Find your code</h3>
               <ul class="aboutList">
                 <li>Inside the box on a small card or label.</li>
                 <li>Format looks like <code>Q7A-5K2-JD</code> (example only).</li>
                 <li>Enter it on the Home screen to unlock your page.</li>
               </ul>
             </div>
-
             <div class="aboutCard">
-              <h3>Our shop</h3>
+              <h3>Visit the shop</h3>
               <p>Browse current drops and restocks:</p>
-              <a href="https://www.etsy.com/shop/ThePoggerSquad" class="btn small" target="_blank" rel="noopener">Visit on Etsy</a>
+              <p><a href="https://www.etsy.com/shop/ThePoggerSquad" class="btn small" target="_blank" rel="noopener">Visit on Etsy</a></p>
             </div>
           </div>
 
           <div class="aboutGrid">
             <div class="aboutCard">
               <h3>Support</h3>
-              <p>Need help with a product? Use the **Request Support** button on your product page for the fastest response.</p>
-              <div><a id="aboutSupport" href="#" class="btn ghost small" target="_blank" rel="noopener">Open Support</a></div>
+              <p>Need help? Use the <em>Request Support</em> button on your product page or open our support portal:</p>
+              <p><a id="aboutSupport" href="#" class="btn ghost small" target="_blank" rel="noopener">Open Support</a></p>
             </div>
-
             <div class="aboutCard">
               <h3>Feedback</h3>
-              <p>Have ideas for this code system or found a bug?</p>
-              <a id="feedbackLink" href="#" class="btn small">Leave Portal Feedback</a>
+              <p>Have ideas for this portal or found a bug?</p>
+              <p><a id="feedbackLink" href="#" class="btn small" target="_blank" rel="noopener">Leave Portal Feedback</a></p>
             </div>
-
             <div class="aboutCard">
               <h3>Privacy</h3>
               <p>No account required. Codes only reveal product details and unit metadata—no personal info is stored here.</p>
             </div>
+          </div>
+
+          <div class="aboutFoot">
+            <a href="#" id="aboutBack" class="btn ghost small">Back to Home</a>
           </div>
         </div>
       </section>
@@ -397,33 +383,13 @@ function decodeCode(c){
 /* =========================
    DATA (products.json)
    =========================
-   Expected keys (we'll finalize next):
    {
      "unitPad": 4,
-     "reviewUrl": "...",            // optional global
-     "supportUrl": "...",           // optional global
-     "feedbackUrl": "...",          // About page link
-     "aboutSupportUrl": "...",      // About page support button
-     "products": [
-       {
-         "id": 201,
-         "title": "...",
-         "tags": ["..."],
-         "features": ["..."],
-         "descriptionMD": "...",
-         "usageMD": "...",
-         "perks": [ { "label":"...", "href":"..." } ],
-         "media": [
-           { "type":"image", "src":"assets/201/a.jpg", "alt":"..." },
-           { "type":"video", "src":"assets/201/clip.mp4", "poster":"assets/201/poster.jpg", "alt":"..." }
-         ],
-         "etsyUrl": "...",
-         "reviewUrl": "...",        // optional override
-         "supportUrl": "...",       // optional override (link, not email)
-         "resources": [ { "label":"...", "href":"..." } ], // optional sidebar links
-         "hasGame": false
-       }
-     ]
+     "reviewUrl": "...",           // optional global
+     "supportUrl": "...",          // optional global
+     "feedbackUrl": "...",
+     "aboutSupportUrl": "...",
+     "products": [ { ... } ]
    }
 */
 let UNIT_PAD = 4;
@@ -483,7 +449,7 @@ function onOpen(){
 }
 
 function showError(title,msg){
-  result.innerHTML = `<div class="entry resultCard"><div class="row"><div style="font-weight:900; color:#ff708c">${title}</div><div class="muted">${msg}</div></div></div>`;
+  result.innerHTML = `<div class="entry"><div class="row"><div style="font-weight:900; color:#ff708c">${title}</div><div class="muted">${msg}</div></div></div>`;
 }
 
 function padUnit(n){ return String(n).padStart(UNIT_PAD, '0'); }
@@ -499,16 +465,14 @@ function mdToHtml(md){
 
 function renderProduct(prod, unit, code){
   const unitStr = padUnit(unit);
-
-  // links (with global fallbacks)
   const reviewUrl = prod.reviewUrl || REVIEW_URL_GLOBAL || "#";
   const supportUrl = prod.supportUrl || SUPPORT_URL_GLOBAL || "#";
   const etsyUrl   = prod.etsyUrl   || "#";
 
   const feats = (prod.features||[]).map(f=>`<div class="feature-anim">${escapeHtml(f)}</div>`).join("");
   const tags  = (prod.tags||[]).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("");
-
   const perks = (prod.perks||[]).map(p=>`<a class="btn small" style="--g1:var(--d);--g2:var(--c)" href="${escapeAttr(p.href)}" target="_blank" rel="noopener">${escapeHtml(p.label)}</a>`).join(" ");
+  const resources = (prod.resources||[]).map(r=>`<a class="btn ghost small" href="${escapeAttr(r.href)}" target="_blank" rel="noopener">${escapeHtml(r.label)}</a>`).join("");
 
   const gallery = (prod.media||[]).map((m,i)=>{
     const title = escapeAttr(m.alt || prod.title || "Media");
@@ -528,58 +492,53 @@ function renderProduct(prod, unit, code){
     }
   }).join("");
 
-  // Resources (optional)
-  const resources = (prod.resources||[]).map(r=>`<a class="btn ghost small" href="${escapeAttr(r.href)}" target="_blank" rel="noopener">${escapeHtml(r.label)}</a>`).join("");
-
   result.innerHTML = `
-  <div class="entry resultCard" style="display:block">
-    <div class="product-grid">
-      <!-- Left: main content -->
-      <div>
-        <div class="row" style="justify-content:space-between; align-items:flex-start; margin-bottom:6px">
-          <div style="min-width:220px; flex:1 1 auto">
-            <h2 style="margin:0 0 6px 0; font-family:Orbitron; letter-spacing:.4px">${escapeHtml(prod.title || "Product")}</h2>
-            <div class="bigUnit">Unit #${unitStr}</div>
-          </div>
-          <div class="btnRow">
-            <a class="btn small" style="--g1:var(--b);--g2:var(--a)" href="${escapeAttr(etsyUrl)}" target="_blank" rel="noopener">View on Etsy</a>
-            <a class="btn ghost small" href="${escapeAttr(supportUrl)}" target="_blank" rel="noopener">Request Support</a>
-            <a class="btn ghost small" href="${escapeAttr(reviewUrl)}" target="_blank" rel="noopener">Leave Review</a>
-          </div>
-        </div>
+  <article class="product">
+    <header class="product-header">
+      <div style="min-width:220px; flex:1 1 auto">
+        <h2 class="product-title">${escapeHtml(prod.title || "Product")}</h2>
+        <div class="bigUnit">Unit #${unitStr}</div>
+      </div>
+      <div class="btnRow">
+        <a class="btn small" style="--g1:var(--b);--g2:var(--a)" href="${escapeAttr(etsyUrl)}" target="_blank" rel="noopener">View on Etsy</a>
+        <a class="btn ghost small" href="${escapeAttr(supportUrl)}" target="_blank" rel="noopener">Request Support</a>
+        <a class="btn ghost small" href="${escapeAttr(reviewUrl)}" target="_blank" rel="noopener">Leave Review</a>
+      </div>
+    </header>
 
-        <div class="hr"></div>
-
+    <div class="product-body">
+      <!-- Main column -->
+      <div class="product-main">
         ${gallery ? `<div class="gallery" id="gallery">${gallery}</div>` : `<div class="muted">No media yet.</div>`}
 
-        ${prod.descriptionMD ? `<div class="hr"></div><h3 style="margin:8px 0 6px; font-family:Orbitron">Description</h3><div>${mdToHtml(prod.descriptionMD)}</div>` : ""}
+        ${prod.descriptionMD ? `<div class="section"><h3>Description</h3><div>${mdToHtml(prod.descriptionMD)}</div></div>` : ""}
 
-        ${(prod.features && prod.features.length) ? `<div class="hr"></div><h3 style="margin:8px 0 6px; font-family:Orbitron">Features</h3><div class="features">${feats}</div>` : ""}
+        ${(prod.features && prod.features.length) ? `<div class="section"><h3>Features</h3><div class="features">${feats}</div></div>` : ""}
 
-        ${prod.usageMD ? `<div class="hr"></div><h3 style="margin:8px 0 6px; font-family:Orbitron">How to Use</h3><div>${mdToHtml(prod.usageMD)}</div>` : ""}
+        ${prod.usageMD ? `<div class="section"><h3>How to Use</h3><div>${mdToHtml(prod.usageMD)}</div></div>` : ""}
 
-        ${(prod.perks && prod.perks.length) ? `<div class="hr"></div><h3 style="margin:8px 0 6px; font-family:Orbitron">Perks</h3><div class="row">${perks}</div>` : ""}
+        ${(prod.perks && prod.perks.length) ? `<div class="section"><h3>Perks</h3><div class="row">${perks}</div></div>` : ""}
 
-        ${prod.hasGame ? `<div class="hr"></div><h3 style="margin:8px 0 6px; font-family:Orbitron">Mini Game</h3><div id="gameArea" class="entry" style="justify-content:center">Coming soon for this item.</div>` : ""}
+        ${prod.hasGame ? `<div class="section"><h3>Mini Game</h3><div class="entry" style="justify-content:center">Coming soon for this item.</div></div>` : ""}
       </div>
 
-      <!-- Right: sidebar -->
-      <div class="grid">
+      <!-- Sidebar -->
+      <aside class="product-aside grid">
         <div class="asideCard">
-          <strong style="font-family:Orbitron">Tags</strong>
-          <div class="hr"></div>
+          <strong>Tags</strong>
+          <div class="divider"></div>
           <div class="tags">${tags || `<span class="muted">No tags</span>`}</div>
         </div>
 
         ${(resources) ? `
         <div class="asideCard">
-          <strong style="font-family:Orbitron">Resources</strong>
-          <div class="hr"></div>
+          <strong>Resources</strong>
+          <div class="divider"></div>
           <div class="resList">${resources}</div>
         </div>` : ``}
-      </div>
+      </aside>
     </div>
-  </div>`;
+  </article>`;
 
   wireGallery(prod);
 }
@@ -629,7 +588,6 @@ function shake(el){ el.style.transition="transform .08s"; let i=0; const j=setIn
 /* Boot */
 (async function init(){
   await loadProducts();
-  // Set About page support link if provided
   if(ABOUT_SUPPORT_URL){ const a=document.getElementById('aboutSupport'); if(a) a.href = ABOUT_SUPPORT_URL; }
   setActive("home");
   setTimeout(()=> document.getElementById('codeInput').focus(), 300);
