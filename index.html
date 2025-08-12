@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>ThePoggerSquad Shop — Product Portal</title>
+<meta name="theme-color" content="#070914"/>
+<style>
+  :root{
+    --bg:#070914;
+    --ink:#f4f7ff; --muted:#9aa7c7;
+    --a:#ff2bd1; --b:#08f7fe; --c:#f5d300; --d:#00ff85;
+    --panel:rgba(10,17,40,.82); --line:rgba(255,255,255,.12);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; color:var(--ink);
+    font:16px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    background:var(--bg);
+    /* mobile fix: allow vertical scroll, prevent side scroll */
+    overflow-x:hidden;
+    overflow-y:auto;
+  }
+
+  /* Endless, color-shifting grid */
+  .bg{position:fixed; inset:0; z-index:-2; overflow:hidden; animation:hueroll 18s linear infinite;}
+  @keyframes hueroll{ to{ filter:hue-rotate(360deg) } }
+  .bg::before, .bg::after{
+    content:""; position:absolute; inset:-200% -200% -200% -200%;
+    background:
+      radial-gradient(80rem 40rem at 50% -10%, rgba(255,43,209,.10), transparent 55%),
+      radial-gradient(60rem 30rem at 50% 110%, rgba(8,247,254,.08), transparent 60%),
+      linear-gradient(#0b1024, #0b0f21);
+    z-index:-2;
+  }
+  .grid{
+    position:fixed; inset:0; z-index:-1;
+    background:
+      repeating-linear-gradient(0deg, rgba(160,190,255,.16) 0 1px, transparent 1px 52px),
+      repeating-linear-gradient(90deg, rgba(160,190,255,.16) 0 1px, transparent 1px 88px);
+    -webkit-mask: radial-gradient(circle at 50% 35%, black 0 40%, transparent 70%);
+            mask: radial-gradient(circle at 50% 35%, black 0 40%, transparent 70%);
+    filter: drop-shadow(0 0 8px rgba(122,160,255,.35));
+    animation:scrollgrid 22s linear infinite;
+  }
+  @keyframes scrollgrid{ 0%{background-position:0 0,0 0} 100%{background-position:0 260px,220px 0} }
+
+  /* Shell */
+  .wrap{
+    position:relative; width:min(940px,92vw); margin:0 auto;
+    /* mobile fix: let content grow and scroll */
+    height:auto; min-height:100%;
+    display:grid; place-items:center;
+  }
+  .shell{
+    width:100%; max-width:940px; margin:12px auto;
+    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:22px; box-shadow:0 30px 120px rgba(0,0,0,.6);
+    overflow:hidden; transform:translateY(12px) scale(.98); opacity:0; animation:drop .7s cubic-bezier(.2,.8,.2,1) .1s forwards;
+    backdrop-filter: blur(10px);
+  }
+  @keyframes drop{to{transform:translateY(0) scale(1); opacity:1}}
+
+  header{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:12px 14px; border-bottom:1px solid var(--line);
+    background: linear-gradient(90deg, rgba(255,43,209,.14), rgba(8,247,254,.10));
+  }
+  .brand h1{margin:0; font-size:16px; font-weight:900; letter-spacing:.4px}
+  .nav{display:flex; gap:8px}
+  .nav a{
+    color:#dbe5ff; text-decoration:none; font-weight:700; letter-spacing:.3px;
+    padding:8px 10px; border-radius:12px; border:1px solid rgba(255,255,255,.12);
+    background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+  }
+  .nav a.active{border-color:#8bb3ff; color:#8bb3ff}
+  .subGuide{display:none;}
+  @media (min-width:720px){
+    .subGuide{
+      display:block; font-size:13px; color:#cfe0ff; opacity:.95;
+      padding:6px 10px; border-radius:10px;
+      background:linear-gradient(180deg, rgba(8,247,254,.10), rgba(255,43,209,.06));
+      border:1px solid rgba(255,255,255,.12);
+      max-width:52ch;
+    }
+  }
+
+  main{display:grid; grid-template-columns:1fr}
+  section{display:none; padding:14px}
+  section.show{display:block; animation:fade .35s ease}
+  @keyframes fade{from{opacity:.25; transform:translateY(6px)} to{opacity:1; transform:none}}
+  .center{display:grid; place-items:center; padding:28px 14px; gap:10px}
+
+  .entry{
+    display:flex; gap:10px; align-items:center; padding:14px; background:var(--panel);
+    border-radius:16px; border:1px solid var(--line);
+    box-shadow: 0 10px 28px rgba(10,14,40,.6), inset 0 0 0 1px rgba(255,255,255,.02);
+    backdrop-filter: blur(12px);
+  }
+  /* mobile fix: stack the input/button and avoid overflow */
+  @media (max-width:520px){
+    .entry{flex-wrap:wrap}
+    #codeInput{flex:1 1 100%; min-width:0}
+    #btnOpen{width:100%}
+  }
+  /* safer width handling than vw */
+  .entry--wide{width:100%; max-width:720px}
+
+  input[type="text"], input[type="number"], select{
+    width:100%; background:#0b1431; color:var(--ink); border:1px solid rgba(255,255,255,.2);
+    padding:14px 16px; border-radius:12px; outline:none; transition:border .2s ease, box-shadow .2s ease;
+    font-weight:700; letter-spacing:.4px;
+  }
+  input:focus, select:focus{border-color:#8bb3ff; box-shadow:0 0 0 8px rgba(139,179,255,.12)}
+  .btn{
+    background:linear-gradient(180deg, var(--b), var(--a));
+    color:#040a0f; border:none; padding:12px 16px; border-radius:12px; cursor:pointer; font-weight:900;
+    letter-spacing:.4px;
+    box-shadow:0 14px 34px rgba(8,247,254,.25), 0 0 0 1px rgba(255,255,255,.08) inset;
+    transition:transform .07s ease, filter .2s ease;
+  }
+  .btn:active{ transform:translateY(1px) }
+
+  .muted{color:var(--muted); font-size:14px}
+  .hr{height:1px; background:linear-gradient(90deg,transparent, rgba(255,255,255,.18), transparent); margin:12px 0}
+
+  .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+  .grid{display:grid; gap:12px}
+  .cols-2{grid-template-columns:1fr 1fr}
+  .cols-3{grid-template-columns:repeat(3,1fr)}
+
+  .resultCard{transform-origin:50% 0; animation:pop .35s cubic-bezier(.2,.8,.2,1)}
+  @keyframes pop{from{opacity:.2; transform:scale(.985)} to{opacity:1; transform:scale(1)}}
+  .bigUnit{font:900 24px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing:.6px}
+  .pill{padding:6px 10px; border-radius:999px; background:#0b1431; border:1px solid rgba(255,255,255,.12); font-size:12px}
+
+  /* Media gallery */
+  .gallery{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:10px
+  }
+  .thumb{position:relative; border-radius:12px; overflow:hidden; background:#0b1431; border:1px solid rgba(255,255,255,.1); cursor:pointer}
+  .thumb img{width:100%; height:120px; object-fit:cover; display:block}
+  .thumb .badge{position:absolute; bottom:6px; right:6px; font-size:11px; background:rgba(0,0,0,.45); padding:2px 6px; border-radius:999px}
+
+  /* Lightbox */
+  .lightbox{position:fixed; inset:0; background:rgba(0,0,0,.65); display:none; align-items:center; justify-content:center; z-index:99; padding:16px}
+  .lightbox.show{display:flex; animation:fade .2s ease}
+  .lightbox .box{max-width:min(900px,92vw); width:100%; background:rgba(10,17,40,.92); border:1px solid rgba(255,255,255,.2); border-radius:16px; overflow:hidden; box-shadow:0 30px 90px rgba(0,0,0,.6)}
+  .lightbox .mediaWrap{display:grid; place-items:center; background:#0b1431}
+  .lightbox img{max-width:100%; height:auto; display:block}
+  .lightbox video{width:100%; height:auto; display:block; background:#000}
+  .lightbox .top{display:flex; align-items:center; justify-content:space-between; padding:10px 12px}
+  .x{background:transparent; border:1px solid rgba(255,255,255,.25); color:#fff; padding:6px 10px; border-radius:10px; cursor:pointer}
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="grid"></div>
+
+<div class="wrap">
+  <div class="shell">
+    <header>
+      <div class="brand"><h1>ThePoggerSquad Shop</h1></div>
+      <div class="subGuide">Your unique code is printed on the card inside your package. Type it below to view product details, your unit number, perks, and support.</div>
+      <nav class="nav">
+        <a href="#" id="navHome" class="active">Home</a>
+        <a href="#" id="navAbout">About</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HOME -->
+      <section id="lookup" class="show">
+        <div class="center">
+          <div style="text-align:center; font-weight:900; letter-spacing:.4px; font-size:18px">Enter Product Code</div>
+          <div class="entry entry--wide">
+            <input id="codeInput" type="text" placeholder="Type Code Here (e.g., Q7A-5K2-JD)" autocomplete="off" inputmode="latin-prose"/>
+            <button class="btn" id="btnOpen">Open</button>
+          </div>
+        </div>
+        <div id="result" style="padding:0 8px 18px"></div>
+      </section>
+
+      <!-- ADMIN -->
+      <section id="admin">
+        <div class="row" style="margin-bottom:10px"><a href="#" class="nav link" id="adminBack" style="color:#c7d4ff; text-decoration:none">← Back to Home</a></div>
+        <div class="entry" style="margin-bottom:12px">
+          <div style="width:100%">
+            <div class="row" style="justify-content:space-between">
+              <strong>Generate Codes</strong><span class="muted">Select product & unit number</span>
+            </div>
+            <div class="hr"></div>
+            <div class="row" style="gap:12px">
+              <label style="flex:1">Product
+                <select id="productSelect"></select>
+              </label>
+              <label style="width:200px">Unit #
+                <input id="unitNumber" type="number" min="0" step="1" value="0"/>
+              </label>
+              <button class="btn" id="btnGen">Generate</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="entry">
+          <div style="width:100%">
+            <strong>Codes</strong>
+            <div class="hr"></div>
+            <div id="codesOut" style="background:#0b1431; border:1px dashed rgba(255,255,255,.25); border-radius:12px; padding:12px; font:13px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color:#d7e7ff; white-space:pre-wrap"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about">
+        <div class="entry">
+          <div style="width:100%">
+            <h3 style="margin:0 0 8px">About</h3>
+            <div style="display:grid; grid-template-columns:160px 1fr; gap:10px">
+              <div class="muted">Where’s my code?</div><div>On the card inside your package. Enter it on the Home screen.</div>
+              <div class="muted">What do I get?</div><div>Product media, description, features, <strong>how to use</strong>, perks, and quick support.</div>
+              <div class="muted">©</div><div>ThePoggerSquad Shop. All rights reserved.</div>
+            </div>
+            <div class="hr"></div>
+            <a href="#" id="aboutBack" class="btn" style="text-decoration:none">Back to Home</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <div class="box">
+    <div class="top"><div id="lbTitle"></div><button class="x" id="lbClose">Close</button></div>
+    <div class="mediaWrap" id="lbMedia"></div>
+  </div>
+</div>
+
+<script>
+/* =========================
+   CONFIG
+   ========================= */
+const SECRET = "CHANGE_ME_SECRET_SALT";
+const ADMIN_TRIGGER_CODE = "RL098ight";
+const SUPPORT_EMAIL = "support@example.com";
+const REVIEW_URL = "https://www.etsy.com/your/shops/me/reviews?ref=purchase_feedback";
+
+/* Crockford base32 + helpers */
+const ALPHABET = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
+const base = ALPHABET.length;
+const toB32 = (n, width=1)=>{ let s=""; do{ s=ALPHABET[n%base]+s; n=Math.floor(n/base);}while(n>0); while(s.length<width) s="0"+s; return s; };
+const fromB32 = (s)=>{ let n=0; for(const ch of s){ const i=ALPHABET.indexOf(ch); if(i<0) return NaN; n=n*base+i; } return n; };
+const randBlock = (len)=> Array.from({length:len},()=> ALPHABET[Math.floor(Math.random()*base)]).join("");
+function crc16(str){ let c=0xFFFF; for(let i=0;i<str.length;i++){ c^=str.charCodeAt(i); for(let k=0;k<8;k++){ c = (c & 1) ? (c>>>1) ^ 0xA001 : (c>>>1); } } return c & 0xFFFF; }
+function crc10(str){ return crc16(str) & 0x3FF; }
+function productTagIndex(productId){ return crc16(productId + "|" + SECRET) & 31; }
+
+/* Code schema: AAA-BBBB-CC */
+function buildCode(productId, unit){
+  if(unit<0) unit=0; if(unit>32767) unit = unit % 32768;
+  const AAA = randBlock(3);
+  const tag = productTagIndex(productId) & 31;
+  const payload = (tag << 15) | (unit & 0x7FFF);
+  const mask = crc16(AAA + SECRET) & 0xFFFF;
+  const obf = payload ^ (mask & 0xFFFFF);
+  const BBBB = toB32(obf, 4);
+  const CC = toB32(crc10(AAA + BBBB + SECRET), 2);
+  return `${AAA}-${BBBB}-${CC}`;
+}
+function decodeCode(c){
+  const s = (c||"").trim().toUpperCase();
+  if(!/^[0-9A-HJKMNPQRSTVWXYZ]{3}-[0-9A-HJKMNPQRSTVWXYZ]{4}-[0-9A-HJKMNPQRSTVWXYZ]{2}$/.test(s))
+    return {ok:false, reason:"format"};
+  const [AAA, BBBB, CC] = s.split("-");
+  const chk = toB32(crc10(AAA + BBBB + SECRET), 2);
+  if(chk !== CC) return {ok:false, reason:"checksum"};
+  const obf = fromB32(BBBB);
+  const mask = crc16(AAA + SECRET) & 0xFFFF;
+  const payload = obf ^ (mask & 0xFFFFF);
+  const tag = (payload >> 15) & 31;
+  const unit = payload & 0x7FFF;
+  return {ok:true, tag, unit, code:s};
+}
+
+/* =========================
+   DATA LOADING (products.json next to index.html)
+   ========================= */
+let UNIT_PAD = 4;
+let PRODUCTS = [];
+
+async function loadProducts(){
+  try{
+    const res = await fetch('data/products.json', {cache:'no-store'});
+    if(!res.ok) throw new Error('fetch fail');
+    const data = await res.json();
+    UNIT_PAD = Number.isInteger(data.unitPad) ? data.unitPad : 4;
+    PRODUCTS = data.products || [];
+  }catch(e){
+    UNIT_PAD = 4;
+    PRODUCTS = [
+      { id:10, title:"3D-Printed Coaster Set (Synthwave)", features:["TPU feet","Matte PLA+","Heat insert","Retro gradient"], descriptionMD:"Fallback **PLA+** coasters.", usageMD:"Use gently.", perks:[], media:[], hasGame:false }
+    ];
+  }
+}
+
+/* =========================
+   UI wiring + rendering
+   ========================= */
+const $ = (q)=>document.querySelector(q);
+const show = id => { document.querySelectorAll("main > section").forEach(s=>s.classList.remove("show")); $(id).classList.add("show"); };
+const navHome = $("#navHome"), navAbout=$("#navAbout");
+function setActive(tab){ [navHome, navAbout].forEach(a=>a.classList.remove("active")); (tab==="home"?navHome:navAbout).classList.add("active"); }
+
+const codeInput=$("#codeInput"), btnOpen=$("#btnOpen"), result=$("#result");
+const productSelect=$("#productSelect"), unitNumber=$("#unitNumber"), btnGen=$("#btnGen"), codesOut=$("#codesOut");
+const aboutBack=$("#aboutBack"), adminBack=$("#adminBack");
+
+navHome.addEventListener("click",(e)=>{ e.preventDefault(); show("#lookup"); setActive("home"); });
+navAbout.addEventListener("click",(e)=>{ e.preventDefault(); show("#about"); setActive("about"); });
+aboutBack.addEventListener("click",(e)=>{ e.preventDefault(); show("#lookup"); setActive("home"); });
+adminBack.addEventListener("click",(e)=>{ e.preventDefault(); show("#lookup"); setActive("home"); });
+
+btnOpen.addEventListener("click", onOpen);
+codeInput.addEventListener("keydown", e=>{ if(e.key==="Enter") onOpen(); });
+
+function onOpen(){
+  const raw = codeInput.value.trim();
+  if(!raw){ shake(codeInput); return; }
+  if(raw === ADMIN_TRIGGER_CODE){ populateAdminProducts(); show("#admin"); return; }
+
+  const dec = decodeCode(raw);
+  if(!dec.ok){ showError("Code not recognized","Please double-check characters"); return; }
+
+  const prod = PRODUCTS.find(p => productTagIndex(p.id) === dec.tag);
+  if(!prod){ showError("Unknown product","This code matches no product"); return; }
+
+  renderProduct(prod, dec.unit, dec.code);
+}
+
+function showError(title,msg){
+  result.innerHTML = `<div class="entry resultCard"><div class="row"><div style="font-weight:900; color:#ff708c">${title}</div><div class="muted">${msg}</div></div></div>`;
+}
+
+function padUnit(n){ return String(n).padStart(UNIT_PAD, '0'); }
+
+function mdToHtml(md){
+  let h = (md||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  h = h.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  h = h.replace(/\*(.+?)\*/g, "<em>$1</em>");
+  h = h.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  h = h.replace(/\n/g,"<br>");
+  return h;
+}
+
+function renderProduct(prod, unit, code){
+  const unitStr = padUnit(unit);
+  const feats = (prod.features||[]).map(f=>`<span class="pill">${escapeHtml(f)}</span>`).join(" ");
+  const perks = (prod.perks||[]).map(p=>`<a class="btn" style="text-decoration:none" href="${escapeAttr(p.href)}" target="_blank" rel="noopener">${escapeHtml(p.label)}</a>`).join(" ");
+  const gallery = (prod.media||[]).map((m,i)=>{
+    if(m.type==="video"){
+      return `<div class="thumb" data-idx="${i}" data-kind="video" data-src="${escapeAttr(m.src)}" data-title="${escapeAttr(m.alt||prod.title)}">
+                <img src="${escapeAttr(m.poster||m.src)}" alt="${escapeAttr(m.alt||"Video")}" loading="lazy"><div class="badge">Video</div>
+              </div>`;
+    }else{
+      return `<div class="thumb" data-idx="${i}" data-kind="image" data-src="${escapeAttr(m.src)}" data-title="${escapeAttr(m.alt||prod.title)}">
+                <img src="${escapeAttr(m.src)}" alt="${escapeAttr(m.alt||"Image")}" loading="lazy">
+              </div>`;
+    }
+  }).join("");
+
+  result.innerHTML = `
+  <div class="entry resultCard">
+    <div style="width:100%">
+      <div class="row" style="justify-content:space-between; align-items:flex-start">
+        <div>
+          <h2 style="margin:0 0 6px 0">${escapeHtml(prod.title)}</h2>
+          <div class="bigUnit">Unit #${unitStr}</div>
+        </div>
+        <div class="row">
+          <a class="btn" style="text-decoration:none" href="${mailtoLink(prod.title, code, unitStr)}">Request Support</a>
+          <a class="btn" style="text-decoration:none" href="${escapeAttr(REVIEW_URL)}" target="_blank" rel="noopener">Leave Review</a>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      ${gallery ? `<div class="gallery" id="gallery">${gallery}</div>` : `<div class="muted">No media yet.</div>`}
+
+      ${prod.descriptionMD ? `<div class="hr"></div><h3 style="margin:4px 0 6px">Description</h3><div>${mdToHtml(prod.descriptionMD)}</div>` : ""}
+
+      ${(prod.features && prod.features.length) ? `<div class="hr"></div><h3 style="margin:4px 0 6px">Features</h3><div class="row">${feats}</div>` : ""}
+
+      ${prod.usageMD ? `<div class="hr"></div><h3 style="margin:4px 0 6px">How to Use</h3><div>${mdToHtml(prod.usageMD)}</div>` : ""}
+
+      ${(prod.perks && prod.perks.length) ? `<div class="hr"></div><h3 style="margin:4px 0 6px">Perks</h3><div class="row">${perks}</div>` : ""}
+
+      ${prod.hasGame ? `<div class="hr"></div><h3 style="margin:4px 0 6px">Mini Game</h3><div id="gameArea" class="entry" style="justify-content:center">Coming soon for this item.</div>` : ""}
+    </div>
+  </div>`;
+
+  wireGallery(prod);
+}
+
+function mailtoLink(title, code, unitStr){
+  const body = encodeURIComponent(`Support — ${title}\nCode: ${code}\nUnit: #${unitStr}\n\nIssue:\n`);
+  return `mailto:${encodeURIComponent(SUPPORT_EMAIL)}?subject=${encodeURIComponent("Support Request")}&body=${body}`;
+}
+
+function escapeHtml(s){ return (s||"").replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m])); }
+function escapeAttr(s){ return escapeHtml(String(s)).replace(/"/g, '&quot;'); }
+
+/* Gallery lightbox */
+const lb = $("#lightbox"), lbMedia=$("#lbMedia"), lbTitle=$("#lbTitle"), lbClose=$("#lbClose");
+lbClose.addEventListener("click", ()=> lb.classList.remove("show"));
+lb.addEventListener("click", (e)=>{ if(e.target===lb) lb.classList.remove("show"); });
+
+function wireGallery(prod){
+  const g = $("#gallery"); if(!g) return;
+  g.querySelectorAll(".thumb").forEach(th=>{
+    th.addEventListener("click", ()=>{
+      const kind = th.dataset.kind, src = th.dataset.src, title = th.dataset.title || prod.title;
+      lbTitle.textContent = title;
+      lbMedia.innerHTML = (kind==="video")
+        ? `<video controls src="${escapeAttr(src)}"></video>`
+        : `<img src="${escapeAttr(src)}" alt="${escapeAttr(title)}">`;
+      lb.classList.add("show");
+    });
+  });
+}
+
+/* Admin */
+function populateAdminProducts(){
+  productSelect.innerHTML = "";
+  PRODUCTS.forEach(p=>{
+    const o=document.createElement("option");
+    o.value = p.id; o.textContent = `#${p.id} — ${p.title}`;
+    productSelect.appendChild(o);
+  });
+}
+btnGen.addEventListener("click", ()=>{
+  const pid = parseInt(productSelect.value,10);
+  let unit = parseInt(unitNumber.value,10);
+  if(Number.isNaN(unit) || unit<0){ alert("Enter a valid unit number (0 or higher)."); return; }
+  const code = buildCode(pid, unit);
+  codesOut.textContent += (codesOut.textContent ? "\n" : "") + code;
+});
+
+/* Small UX */
+function shake(el){ el.style.transition="transform .08s"; let i=0; const j=setInterval(()=>{ el.style.transform=`translateX(${(i%2?1:-1)*4}px)`; if(++i>8){clearInterval(j); el.style.transform="";}},40); }
+
+/* Boot */
+(async function init(){
+  await loadProducts();
+  setActive("home");
+  setTimeout(()=> codeInput.focus(), 300);
+})();
+</script>
+</body>
+</html>

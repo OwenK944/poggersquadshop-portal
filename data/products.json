@@ -1,0 +1,21 @@
+{
+  "unitPad": 4,
+  "products": [
+    {
+      "id": 10,
+      "title": "3D-Printed Coaster Set (Synthwave)",
+      "features": ["TPU feet", "Matte PLA+", "Heat insert", "Retro gradient"],
+      "descriptionMD": "Stylish **PLA+** coasters with a synthwave flair.",
+      "usageMD": "Use on flat surfaces only.",
+      "perks": [
+        { "label": "Free Wallpaper", "href": "https://example.com/wallpaper" }
+      ],
+      "media": [
+        { "type": "image", "src": "https://via.placeholder.com/800x600.png?text=Coaster+1" },
+        { "type": "image", "src": "https://via.placeholder.com/800x600.png?text=Coaster+2" },
+        { "type": "video", "src": "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4" }
+      ],
+      "hasGame": false
+    }
+  ]
+}
