@@ -120,14 +120,16 @@
       "title": "THE FINALS Charm | Golden Opportunity Keychain",
       "tags": ["keychain", "the finals", "charm", "golden opportunity", "fan merch"],
       "features": [
-        "Gold-look material option",
-        "Embossed text detail",
-        "Comfort radius edges",
-        "Split ring included"
+        "Premium Golden Silk PLA+ Material",
+        "Embossed Text Details",
+        "Perfect Replica Of In-Game Item",
+        "Split Ring Included"
       ],
-      "descriptionMD": "Golden Opportunity **THE FINALS** charm — embossed lettering and durable finish.",
-      "usageMD": "Normal keychain use. Avoid scraping against rough metal surfaces.",
-      "perks": [],
+      "descriptionMD": "THE FINALS Charm/Keychain Replica is a meticulously crafted, high-quality keychain inspired by the iconic in game weapon charm, Golden Opportunity. Made from durable materials, it features a golden charm that captures the essence of victory and competition. Perfect for fans and collectors alike, this keychain is a stylish and functional accessory to celebrate your passion for THE FINALS.",
+      "usageMD": "Split keyring at seams to attach. Avoid scraping against rough metal surfaces.",
+      "perks": [
+        { "label": "Obtain In Game", "href": "data/assets/205/getgolden.pdf" }
+      ],
       "resources": [
         { "label": "Material & Care", "href": "assets/common/material-care.pdf" }
       ],
@@ -135,7 +137,7 @@
         { "type": "image", "src": "assets/205/cover.jpg", "alt": "Golden Opportunity charm" },
         { "type": "image", "src": "assets/205/02.jpg", "alt": "Detail" }
       ],
-      "etsyUrl": "https://www.etsy.com/listing/PASTE_ID_GO_CHARM",
+      "etsyUrl": "https://www.etsy.com/listing/1754558053/the-finals-charm-golden-opportunity",
       "hasGame": false
     },
 
