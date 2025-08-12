@@ -1,8 +1,11 @@
 {
   "unitPad": 4,
-  "supportEmail": "support@thepoggersquad.shop",
+
   "reviewUrl": "PASTE_SHOP_REVIEW_URL",
-  "feedbackUrl": "PASTE_FEEDBACK_URL",
+  "supportUrl": "PASTE_GLOBAL_SUPPORT_URL", 
+  "feedbackUrl": "PASTE_PORTAL_FEEDBACK_URL",
+  "aboutSupportUrl": "PASTE_GLOBAL_SUPPORT_URL",
+
   "products": [
     {
       "id": 201,
@@ -14,10 +17,14 @@
         "Tuned for low stringing",
         "Snap/press-fit stem"
       ],
-      "descriptionMD": "Digital download of the **UNDO** fidget keychain. Optimized STLs for standard 0.4mm nozzles.",
+      "descriptionMD": "Digital download of the **UNDO** fidget keychain. Optimized STLs for 0.4mm nozzles.",
       "usageMD": "Slice at 0.2mm layer height, 2–3 walls. PLA+ recommended. Add a keyring post-print.",
       "perks": [
-        { "label": "Build guide (PDF)", "href": "assets/201/guide.pdf" }
+        { "label": "Build Guide (PDF)", "href": "assets/201/guide.pdf" }
+      ],
+      "resources": [
+        { "label": "Print Settings (PNG)", "href": "assets/201/print-settings.png" },
+        { "label": "License & Usage", "href": "assets/common/license.pdf" }
       ],
       "media": [
         { "type": "image", "src": "assets/201/cover.jpg", "alt": "UNDO STL cover" },
@@ -27,6 +34,7 @@
       "etsyUrl": "https://www.etsy.com/listing/PASTE_ID_UNDO_STL",
       "hasGame": false
     },
+
     {
       "id": 202,
       "title": "The Null Point Meta 1: Ultra-Light Mouse | Complete Kit",
@@ -38,10 +46,14 @@
         "Balanced cable routing"
       ],
       "descriptionMD": "Meta 1 **Complete Kit** — assembled/ready out of the box. Built for speed and control.",
-      "usageMD": "Plug in via USB, adjust DPI in your software. See included quick-start for grip tips.",
+      "usageMD": "Plug in via USB and adjust DPI in your software. See quick-start for grip tips.",
       "perks": [
-        { "label": "Spare feet (PDF template)", "href": "assets/202/feet-template.pdf" },
-        { "label": "Owner wallpaper", "href": "assets/202/wallpaper.png" }
+        { "label": "Spare Feet Template (PDF)", "href": "assets/202/feet-template.pdf" },
+        { "label": "Owner Wallpaper", "href": "assets/202/wallpaper.png" }
+      ],
+      "resources": [
+        { "label": "Quick-Start (PDF)", "href": "assets/202/quickstart.pdf" },
+        { "label": "Care & Warranty", "href": "assets/common/warranty.pdf" }
       ],
       "media": [
         { "type": "image", "src": "assets/202/cover.jpg", "alt": "Meta 1 complete kit" },
@@ -51,6 +63,7 @@
       "etsyUrl": "https://www.etsy.com/listing/PASTE_ID_META1_COMPLETE",
       "hasGame": false
     },
+
     {
       "id": 203,
       "title": "THE FINALS Charm | Proof of Entry Keychain Replacement",
@@ -64,6 +77,9 @@
       "descriptionMD": "Replacement **Proof of Entry** charm for fans. Clean, bold edge highlights.",
       "usageMD": "Attach to your keys or bag. Avoid harsh solvents.",
       "perks": [],
+      "resources": [
+        { "label": "Material & Care", "href": "assets/common/material-care.pdf" }
+      ],
       "media": [
         { "type": "image", "src": "assets/203/cover.jpg", "alt": "Proof of Entry charm" },
         { "type": "image", "src": "assets/203/02.jpg", "alt": "Detail close-up" }
@@ -71,6 +87,7 @@
       "etsyUrl": "https://www.etsy.com/listing/PASTE_ID_FOE_CHARM",
       "hasGame": false
     },
+
     {
       "id": 204,
       "title": "Retrowave Sunsets | Keychain",
@@ -84,7 +101,10 @@
       "descriptionMD": "Retro **synthwave** sunset keychain with layered geometry and soft edges.",
       "usageMD": "Attach to keys. For longevity, avoid extended direct sunlight/heat.",
       "perks": [
-        { "label": "Phone wallpaper", "href": "assets/204/wallpaper.png" }
+        { "label": "Phone Wallpaper", "href": "assets/204/wallpaper.png" }
+      ],
+      "resources": [
+        { "label": "Care & Warranty", "href": "assets/common/warranty.pdf" }
       ],
       "media": [
         { "type": "image", "src": "assets/204/cover.jpg", "alt": "Retrowave sunset keychain" },
@@ -94,6 +114,7 @@
       "etsyUrl": "https://www.etsy.com/listing/PASTE_ID_RETROWAVE",
       "hasGame": false
     },
+
     {
       "id": 205,
       "title": "THE FINALS Charm | Golden Opportunity Keychain",
@@ -104,9 +125,12 @@
         "Comfort radius edges",
         "Split ring included"
       ],
-      "descriptionMD": "Golden Opportunity **THE FINALS** charm—clean embossed lettering and durable finish.",
+      "descriptionMD": "Golden Opportunity **THE FINALS** charm — embossed lettering and durable finish.",
       "usageMD": "Normal keychain use. Avoid scraping against rough metal surfaces.",
       "perks": [],
+      "resources": [
+        { "label": "Material & Care", "href": "assets/common/material-care.pdf" }
+      ],
       "media": [
         { "type": "image", "src": "assets/205/cover.jpg", "alt": "Golden Opportunity charm" },
         { "type": "image", "src": "assets/205/02.jpg", "alt": "Detail" }
@@ -114,6 +138,7 @@
       "etsyUrl": "https://www.etsy.com/listing/PASTE_ID_GO_CHARM",
       "hasGame": false
     },
+
     {
       "id": 206,
       "title": "UNDO | The Ctrl + Z Fidget Keychain",
@@ -127,7 +152,10 @@
       "descriptionMD": "Physical **UNDO** fidget keychain with keycap-inspired look and feel.",
       "usageMD": "Attach to keys; fidget responsibly 🫡",
       "perks": [
-        { "label": "Sticker sheet (PDF)", "href": "assets/206/stickers.pdf" }
+        { "label": "Sticker Sheet (PDF)", "href": "assets/206/stickers.pdf" }
+      ],
+      "resources": [
+        { "label": "Care & Warranty", "href": "assets/common/warranty.pdf" }
       ],
       "media": [
         { "type": "image", "src": "assets/206/cover.jpg", "alt": "UNDO keychain cover" },
@@ -137,6 +165,7 @@
       "etsyUrl": "https://www.etsy.com/listing/PASTE_ID_UNDO_KEYCHAIN",
       "hasGame": false
     },
+
     {
       "id": 207,
       "title": "The Null Point Meta 1: Ultra-Light Mouse | Mod Kit",
@@ -147,10 +176,14 @@
         "Cable management aids",
         "Quick-start overlay"
       ],
-      "descriptionMD": "**Mod Kit** for the Meta 1. Bring your own base mouse—see listing for compatibility.",
+      "descriptionMD": "**Mod Kit** for the Meta 1. Bring your own base mouse — see listing for compatibility.",
       "usageMD": "Follow the included quick-start PDF. Take it slow; test after each step.",
       "perks": [
-        { "label": "Quick-start (PDF)", "href": "assets/207/quickstart.pdf" }
+        { "label": "Quick-Start (PDF)", "href": "assets/207/quickstart.pdf" }
+      ],
+      "resources": [
+        { "label": "Build Guide (PDF)", "href": "assets/207/build-guide.pdf" },
+        { "label": "Care & Warranty", "href": "assets/common/warranty.pdf" }
       ],
       "media": [
         { "type": "image", "src": "assets/207/cover.jpg", "alt": "Meta 1 mod kit" },
