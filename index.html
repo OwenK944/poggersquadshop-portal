@@ -5,25 +5,30 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>ThePoggerSquad Shop — Product Portal</title>
 <meta name="theme-color" content="#070914"/>
+
+<!-- Retro, readable fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Exo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+
 <style>
   :root{
     --bg:#070914;
     --ink:#f4f7ff; --muted:#9aa7c7;
     --a:#ff2bd1; --b:#08f7fe; --c:#f5d300; --d:#00ff85;
     --panel:rgba(10,17,40,.82); --line:rgba(255,255,255,.12);
+    --btn-ink:#061018;
   }
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
     margin:0; color:var(--ink);
-    font:16px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    font:16px/1.55 "Exo 2", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
     background:var(--bg);
-    /* mobile fix: allow vertical scroll, prevent side scroll */
     overflow-x:hidden;
     overflow-y:auto;
+    text-rendering:optimizeLegibility;
   }
 
-  /* Endless, color-shifting grid */
+  /* ===== Endless, color-shifting grid background ===== */
   .bg{position:fixed; inset:0; z-index:-2; overflow:hidden; animation:hueroll 18s linear infinite;}
   @keyframes hueroll{ to{ filter:hue-rotate(360deg) } }
   .bg::before, .bg::after{
@@ -46,15 +51,10 @@
   }
   @keyframes scrollgrid{ 0%{background-position:0 0,0 0} 100%{background-position:0 260px,220px 0} }
 
-  /* Shell */
-  .wrap{
-    position:relative; width:min(940px,92vw); margin:0 auto;
-    /* mobile fix: let content grow and scroll */
-    height:auto; min-height:100%;
-    display:grid; place-items:center;
-  }
+  /* ===== Shell / header ===== */
+  .wrap{position:relative; width:min(1020px,92vw); margin:0 auto; min-height:100%; display:grid; place-items:center}
   .shell{
-    width:100%; max-width:940px; margin:12px auto;
+    width:100%; max-width:1020px; margin:12px auto;
     background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
     border:1px solid rgba(255,255,255,.14);
     border-radius:22px; box-shadow:0 30px 120px rgba(0,0,0,.6);
@@ -68,23 +68,28 @@
     padding:12px 14px; border-bottom:1px solid var(--line);
     background: linear-gradient(90deg, rgba(255,43,209,.14), rgba(8,247,254,.10));
   }
-  .brand h1{margin:0; font-size:16px; font-weight:900; letter-spacing:.4px}
+  .brand h1{
+    margin:0; font-family:"Orbitron", system-ui; font-weight:800; font-size:18px; letter-spacing:.6px;
+    text-transform:uppercase
+  }
   .nav{display:flex; gap:8px}
   .nav a{
-    color:#dbe5ff; text-decoration:none; font-weight:700; letter-spacing:.3px;
+    color:#dbe5ff; text-decoration:none; font-weight:800; letter-spacing:.35px;
     padding:8px 10px; border-radius:12px; border:1px solid rgba(255,255,255,.12);
     background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
     box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
   }
   .nav a.active{border-color:#8bb3ff; color:#8bb3ff}
-  .subGuide{display:none;}
-  @media (min-width:720px){
+  .subGuide{
+    display:none;
+  }
+  @media (min-width:780px){
     .subGuide{
       display:block; font-size:13px; color:#cfe0ff; opacity:.95;
       padding:6px 10px; border-radius:10px;
       background:linear-gradient(180deg, rgba(8,247,254,.10), rgba(255,43,209,.06));
       border:1px solid rgba(255,255,255,.12);
-      max-width:52ch;
+      max-width:60ch;
     }
   }
 
@@ -92,7 +97,7 @@
   section{display:none; padding:14px}
   section.show{display:block; animation:fade .35s ease}
   @keyframes fade{from{opacity:.25; transform:translateY(6px)} to{opacity:1; transform:none}}
-  .center{display:grid; place-items:center; padding:28px 14px; gap:10px}
+  .center{display:grid; place-items:center; padding:28px 14px; gap:12px}
 
   .entry{
     display:flex; gap:10px; align-items:center; padding:14px; background:var(--panel);
@@ -100,14 +105,12 @@
     box-shadow: 0 10px 28px rgba(10,14,40,.6), inset 0 0 0 1px rgba(255,255,255,.02);
     backdrop-filter: blur(12px);
   }
-  /* mobile fix: stack the input/button and avoid overflow */
-  @media (max-width:520px){
+  @media (max-width:560px){
     .entry{flex-wrap:wrap}
     #codeInput{flex:1 1 100%; min-width:0}
     #btnOpen{width:100%}
   }
-  /* safer width handling than vw */
-  .entry--wide{width:100%; max-width:720px}
+  .entry--wide{width:100%; max-width:760px}
 
   input[type="text"], input[type="number"], select{
     width:100%; background:#0b1431; color:var(--ink); border:1px solid rgba(255,255,255,.2);
@@ -115,45 +118,97 @@
     font-weight:700; letter-spacing:.4px;
   }
   input:focus, select:focus{border-color:#8bb3ff; box-shadow:0 0 0 8px rgba(139,179,255,.12)}
+
+  /* ===== Buttons (toned+cool) ===== */
   .btn{
-    background:linear-gradient(180deg, var(--b), var(--a));
-    color:#040a0f; border:none; padding:12px 16px; border-radius:12px; cursor:pointer; font-weight:900;
-    letter-spacing:.4px;
-    box-shadow:0 14px 34px rgba(8,247,254,.25), 0 0 0 1px rgba(255,255,255,.08) inset;
-    transition:transform .07s ease, filter .2s ease;
+    --g1: var(--b); --g2: var(--a);
+    background:linear-gradient(180deg, var(--g1), var(--g2));
+    color:var(--btn-ink); border:none; padding:12px 16px; border-radius:12px; cursor:pointer; font-weight:900;
+    letter-spacing:.4px; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    box-shadow:0 14px 34px rgba(8,247,254,.22), 0 0 0 1px rgba(255,255,255,.08) inset;
+    transition:transform .07s ease, filter .2s ease, box-shadow .2s ease;
   }
+  .btn:hover{ filter:brightness(1.07); box-shadow:0 16px 40px rgba(8,247,254,.32), 0 0 0 1px rgba(255,255,255,.12) inset }
   .btn:active{ transform:translateY(1px) }
+  .btn.ghost{
+    background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.02));
+    color:#dbe5ff; border:1px solid rgba(255,255,255,.2);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
+  }
+  .btn.small{ padding:10px 12px; font-weight:800 }
+  .btn.icon svg{ width:18px; height:18px }
 
   .muted{color:var(--muted); font-size:14px}
   .hr{height:1px; background:linear-gradient(90deg,transparent, rgba(255,255,255,.18), transparent); margin:12px 0}
-
   .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
   .grid{display:grid; gap:12px}
-  .cols-2{grid-template-columns:1fr 1fr}
-  .cols-3{grid-template-columns:repeat(3,1fr)}
 
   .resultCard{transform-origin:50% 0; animation:pop .35s cubic-bezier(.2,.8,.2,1)}
   @keyframes pop{from{opacity:.2; transform:scale(.985)} to{opacity:1; transform:scale(1)}}
-  .bigUnit{font:900 24px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing:.6px}
-  .pill{padding:6px 10px; border-radius:999px; background:#0b1431; border:1px solid rgba(255,255,255,.12); font-size:12px}
+  .bigUnit{font:900 24px/1 "Orbitron", ui-monospace; letter-spacing:.6px}
 
-  /* Media gallery */
+  /* ===== Product layout ===== */
+  .product-grid{
+    display:grid; grid-template-columns:1.2fr .8fr; gap:16px;
+  }
+  @media (max-width:900px){
+    .product-grid{ grid-template-columns:1fr; }
+  }
+
+  /* Gallery */
   .gallery{
-    display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:10px
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px
   }
   .thumb{position:relative; border-radius:12px; overflow:hidden; background:#0b1431; border:1px solid rgba(255,255,255,.1); cursor:pointer}
   .thumb img{width:100%; height:120px; object-fit:cover; display:block}
   .thumb .badge{position:absolute; bottom:6px; right:6px; font-size:11px; background:rgba(0,0,0,.45); padding:2px 6px; border-radius:999px}
+  .thumb .play{
+    position:absolute; inset:0; display:grid; place-items:center;
+    background: radial-gradient(circle at 50% 50%, rgba(0,0,0,.0), rgba(0,0,0,.25));
+  }
+  .thumb .play svg{width:34px;height:34px; filter: drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+
+  /* Feature animated text */
+  .features{
+    display:grid; gap:6px;
+  }
+  .feature-anim{
+    font-weight:800;
+    background:linear-gradient(90deg, var(--a), var(--b), var(--c), var(--d), var(--a));
+    background-size:300% 100%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:shimmer 6s linear infinite;
+    letter-spacing:.25px;
+  }
+  @keyframes shimmer{ 0%{background-position:0% 50%} 100%{background-position:100% 50%} }
+
+  /* Tags (right column) */
+  .aside{
+    background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:12px;
+    box-shadow: 0 6px 20px rgba(10,14,40,.5), inset 0 0 0 1px rgba(255,255,255,.02);
+    backdrop-filter: blur(10px);
+  }
+  .tags{display:flex; flex-wrap:wrap; gap:8px}
+  .tag{
+    font-size:12px; padding:6px 10px; border-radius:999px;
+    border:1px solid rgba(255,255,255,.18);
+    background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+    color:#dfe7ff; letter-spacing:.3px; transition: box-shadow .2s ease, transform .05s ease;
+  }
+  .tag:hover{ box-shadow:0 0 12px rgba(122,160,255,.35); transform:translateY(-1px) }
 
   /* Lightbox */
   .lightbox{position:fixed; inset:0; background:rgba(0,0,0,.65); display:none; align-items:center; justify-content:center; z-index:99; padding:16px}
   .lightbox.show{display:flex; animation:fade .2s ease}
-  .lightbox .box{max-width:min(900px,92vw); width:100%; background:rgba(10,17,40,.92); border:1px solid rgba(255,255,255,.2); border-radius:16px; overflow:hidden; box-shadow:0 30px 90px rgba(0,0,0,.6)}
+  .lightbox .box{max-width:min(960px,92vw); width:100%; background:rgba(10,17,40,.92); border:1px solid rgba(255,255,255,.2); border-radius:16px; overflow:hidden; box-shadow:0 30px 90px rgba(0,0,0,.6)}
   .lightbox .mediaWrap{display:grid; place-items:center; background:#0b1431}
   .lightbox img{max-width:100%; height:auto; display:block}
   .lightbox video{width:100%; height:auto; display:block; background:#000}
   .lightbox .top{display:flex; align-items:center; justify-content:space-between; padding:10px 12px}
   .x{background:transparent; border:1px solid rgba(255,255,255,.25); color:#fff; padding:6px 10px; border-radius:10px; cursor:pointer}
+
+  /* Helpers */
+  .visually-hidden{position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; border:0; padding:0; margin:-1px;}
 </style>
 </head>
 <body>
@@ -172,24 +227,31 @@
 
     <main>
       <!-- HOME -->
-      <section id="lookup" class="show">
+      <section id="lookup" class="show" aria-labelledby="lookupTitle">
         <div class="center">
-          <div style="text-align:center; font-weight:900; letter-spacing:.4px; font-size:18px">Enter Product Code</div>
+          <h2 id="lookupTitle" class="visually-hidden">Enter Product Code</h2>
           <div class="entry entry--wide">
-            <input id="codeInput" type="text" placeholder="Type Code Here (e.g., Q7A-5K2-JD)" autocomplete="off" inputmode="latin-prose"/>
-            <button class="btn" id="btnOpen">Open</button>
+            <input id="codeInput" type="text" placeholder="Type Code Here (e.g., Q7A-5K2-JD)" autocomplete="off" inputmode="latin-prose" aria-label="Product code"/>
+            <button class="btn" id="btnOpen" aria-label="Open product">Open</button>
           </div>
         </div>
         <div id="result" style="padding:0 8px 18px"></div>
       </section>
 
       <!-- ADMIN -->
-      <section id="admin">
-        <div class="row" style="margin-bottom:10px"><a href="#" class="nav link" id="adminBack" style="color:#c7d4ff; text-decoration:none">← Back to Home</a></div>
+      <section id="admin" aria-labelledby="adminTitle">
+        <div class="row" style="margin-bottom:10px">
+          <a href="#" class="btn ghost small icon" id="adminBack" aria-label="Back to Home">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Home
+          </a>
+        </div>
+        <h2 id="adminTitle" class="visually-hidden">Admin</h2>
         <div class="entry" style="margin-bottom:12px">
           <div style="width:100%">
             <div class="row" style="justify-content:space-between">
-              <strong>Generate Codes</strong><span class="muted">Select product & unit number</span>
+              <strong style="font-family:Orbitron">Generate Codes</strong>
+              <span class="muted">Select product & unit number</span>
             </div>
             <div class="hr"></div>
             <div class="row" style="gap:12px">
@@ -206,7 +268,7 @@
 
         <div class="entry">
           <div style="width:100%">
-            <strong>Codes</strong>
+            <strong style="font-family:Orbitron">Codes</strong>
             <div class="hr"></div>
             <div id="codesOut" style="background:#0b1431; border:1px dashed rgba(255,255,255,.25); border-radius:12px; padding:12px; font:13px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color:#d7e7ff; white-space:pre-wrap"></div>
           </div>
@@ -214,17 +276,18 @@
       </section>
 
       <!-- ABOUT -->
-      <section id="about">
+      <section id="about" aria-labelledby="aboutTitle">
         <div class="entry">
           <div style="width:100%">
-            <h3 style="margin:0 0 8px">About</h3>
-            <div style="display:grid; grid-template-columns:160px 1fr; gap:10px">
-              <div class="muted">Where’s my code?</div><div>On the card inside your package. Enter it on the Home screen.</div>
-              <div class="muted">What do I get?</div><div>Product media, description, features, <strong>how to use</strong>, perks, and quick support.</div>
-              <div class="muted">©</div><div>ThePoggerSquad Shop. All rights reserved.</div>
+            <h2 id="aboutTitle" style="margin:0 0 8px; font-family:Orbitron; letter-spacing:.4px">About ThePoggerSquad Shop</h2>
+            <div class="grid" style="gap:10px">
+              <div><strong>Who we are</strong><br>Retro vibes, modern design. 3D-prints, posters, and small-batch goods built with care.</div>
+              <div><strong>How this code works</strong><br>Each product ships with a unique code. Enter it here to unlock media, your unit number, instructions, perks, and quick support.</div>
+              <div><strong>Shop</strong><br><a href="https://www.etsy.com/shop/ThePoggerSquad" class="btn small" target="_blank" rel="noopener">Visit on Etsy</a></div>
+              <div><strong>Feedback on this portal</strong><br><a id="feedbackLink" href="#" class="btn ghost small">Send Feedback</a> <span class="muted">(configurable link)</span></div>
             </div>
             <div class="hr"></div>
-            <a href="#" id="aboutBack" class="btn" style="text-decoration:none">Back to Home</a>
+            <a href="#" id="aboutBack" class="btn small">Back to Home</a>
           </div>
         </div>
       </section>
@@ -233,23 +296,27 @@
 </div>
 
 <!-- Lightbox -->
-<div class="lightbox" id="lightbox">
+<div class="lightbox" id="lightbox" aria-modal="true" role="dialog">
   <div class="box">
-    <div class="top"><div id="lbTitle"></div><button class="x" id="lbClose">Close</button></div>
+    <div class="top"><div id="lbTitle"></div><button class="x" id="lbClose" aria-label="Close">Close</button></div>
     <div class="mediaWrap" id="lbMedia"></div>
   </div>
 </div>
 
 <script>
 /* =========================
-   CONFIG
+   GLOBAL CONFIG
    ========================= */
 const SECRET = "CHANGE_ME_SECRET_SALT";
 const ADMIN_TRIGGER_CODE = "RL098ight";
-const SUPPORT_EMAIL = "support@example.com";
-const REVIEW_URL = "https://www.etsy.com/your/shops/me/reviews?ref=purchase_feedback";
 
-/* Crockford base32 + helpers */
+let SUPPORT_EMAIL = "";     // optional global default, may be overridden per product
+let REVIEW_URL_GLOBAL = ""; // optional global default
+let FEEDBACK_URL = "";      // set in products.json or change here later
+
+/* =========================
+   CODEC (Crockford base32 + obfuscation)
+   ========================= */
 const ALPHABET = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
 const base = ALPHABET.length;
 const toB32 = (n, width=1)=>{ let s=""; do{ s=ALPHABET[n%base]+s; n=Math.floor(n/base);}while(n>0); while(s.length<width) s="0"+s; return s; };
@@ -259,7 +326,7 @@ function crc16(str){ let c=0xFFFF; for(let i=0;i<str.length;i++){ c^=str.charCod
 function crc10(str){ return crc16(str) & 0x3FF; }
 function productTagIndex(productId){ return crc16(productId + "|" + SECRET) & 31; }
 
-/* Code schema: AAA-BBBB-CC */
+/* Code: AAA-BBBB-CC (as designed) */
 function buildCode(productId, unit){
   if(unit<0) unit=0; if(unit>32767) unit = unit % 32768;
   const AAA = randBlock(3);
@@ -287,23 +354,54 @@ function decodeCode(c){
 }
 
 /* =========================
-   DATA LOADING (products.json next to index.html)
-   ========================= */
+   DATA (products.json)
+   =========================
+   Expected structure (we'll author this next):
+   {
+     "unitPad": 4,
+     "supportEmail": "you@example.com",           // optional global
+     "reviewUrl": "https://etsy.com/...",         // optional global
+     "feedbackUrl": "https://etsy.com/...",       // optional
+     "products": [
+       {
+         "id": 10,
+         "title": "...",
+         "tags": ["synthwave","3d-printed"],
+         "features": ["TPU feet","Matte PLA+"],
+         "descriptionMD": "Markdown **supported**",
+         "usageMD": "Markdown",
+         "perks": [ { "label":"Download", "href":"https://..." } ],
+         "media": [
+           { "type":"image", "src":"assets/10/a.jpg", "alt":"..." },
+           { "type":"video", "src":"assets/10/clip.mp4", "poster":"assets/10/poster.jpg", "alt":"..." }
+         ],
+         "etsyUrl": "https://www.etsy.com/listing/...",
+         "supportEmail": "override@example.com",  // optional per product
+         "reviewUrl": "https://www.etsy.com/...",  // optional per product
+         "hasGame": false
+       }
+     ]
+   }
+*/
 let UNIT_PAD = 4;
 let PRODUCTS = [];
 
 async function loadProducts(){
+  const fail = (msg)=>{ showError("Configuration missing", msg); };
   try{
     const res = await fetch('data/products.json', {cache:'no-store'});
-    if(!res.ok) throw new Error('fetch fail');
+    if(!res.ok) return fail("Create <code>/data/products.json</code> and push to GitHub.");
     const data = await res.json();
-    UNIT_PAD = Number.isInteger(data.unitPad) ? data.unitPad : 4;
-    PRODUCTS = data.products || [];
+    if(Number.isInteger(data.unitPad)) UNIT_PAD = data.unitPad;
+    if(data.supportEmail) SUPPORT_EMAIL = String(data.supportEmail);
+    if(data.reviewUrl) REVIEW_URL_GLOBAL = String(data.reviewUrl);
+    if(data.feedbackUrl) FEEDBACK_URL = String(data.feedbackUrl);
+    PRODUCTS = Array.isArray(data.products) ? data.products : [];
+    if(!PRODUCTS.length) return fail("Add at least one product to <code>products.json</code>.");
+    // set feedback link
+    if(FEEDBACK_URL){ const a=document.getElementById('feedbackLink'); if(a) a.href = FEEDBACK_URL; }
   }catch(e){
-    UNIT_PAD = 4;
-    PRODUCTS = [
-      { id:10, title:"3D-Printed Coaster Set (Synthwave)", features:["TPU feet","Matte PLA+","Heat insert","Retro gradient"], descriptionMD:"Fallback **PLA+** coasters.", usageMD:"Use gently.", perks:[], media:[], hasGame:false }
-    ];
+    fail("Couldn’t load <code>products.json</code>. Check path and JSON syntax.");
   }
 }
 
@@ -321,8 +419,8 @@ const aboutBack=$("#aboutBack"), adminBack=$("#adminBack");
 
 navHome.addEventListener("click",(e)=>{ e.preventDefault(); show("#lookup"); setActive("home"); });
 navAbout.addEventListener("click",(e)=>{ e.preventDefault(); show("#about"); setActive("about"); });
-aboutBack.addEventListener("click",(e)=>{ e.preventDefault(); show("#lookup"); setActive("home"); });
-adminBack.addEventListener("click",(e)=>{ e.preventDefault(); show("#lookup"); setActive("home"); });
+aboutBack?.addEventListener("click",(e)=>{ e.preventDefault(); show("#lookup"); setActive("home"); });
+adminBack?.addEventListener("click",(e)=>{ e.preventDefault(); show("#lookup"); setActive("home"); });
 
 btnOpen.addEventListener("click", onOpen);
 codeInput.addEventListener("keydown", e=>{ if(e.key==="Enter") onOpen(); });
@@ -330,7 +428,7 @@ codeInput.addEventListener("keydown", e=>{ if(e.key==="Enter") onOpen(); });
 function onOpen(){
   const raw = codeInput.value.trim();
   if(!raw){ shake(codeInput); return; }
-  if(raw === ADMIN_TRIGGER_CODE){ populateAdminProducts(); show("#admin"); return; }
+  if(raw === ADMIN_TRIGGER_CODE){ populateAdminProducts(); show("#admin"); setActive("home"); return; }
 
   const dec = decodeCode(raw);
   if(!dec.ok){ showError("Code not recognized","Please double-check characters"); return; }
@@ -339,6 +437,7 @@ function onOpen(){
   if(!prod){ showError("Unknown product","This code matches no product"); return; }
 
   renderProduct(prod, dec.unit, dec.code);
+  result.scrollIntoView({behavior:"smooth", block:"start"});
 }
 
 function showError(title,msg){
@@ -358,56 +457,90 @@ function mdToHtml(md){
 
 function renderProduct(prod, unit, code){
   const unitStr = padUnit(unit);
-  const feats = (prod.features||[]).map(f=>`<span class="pill">${escapeHtml(f)}</span>`).join(" ");
-  const perks = (prod.perks||[]).map(p=>`<a class="btn" style="text-decoration:none" href="${escapeAttr(p.href)}" target="_blank" rel="noopener">${escapeHtml(p.label)}</a>`).join(" ");
+
+  const supportEmail = prod.supportEmail || SUPPORT_EMAIL || "";
+  const reviewUrl = prod.reviewUrl || REVIEW_URL_GLOBAL || "#";
+  const etsyUrl = prod.etsyUrl || "#";
+
+  const feats = (prod.features||[]).map(f=>`<div class="feature-anim">${escapeHtml(f)}</div>`).join("");
+  const tags = (prod.tags||[]).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("");
+
+  const perks = (prod.perks||[]).map(p=>`<a class="btn small" style="--g1:var(--d);--g2:var(--c)" href="${escapeAttr(p.href)}" target="_blank" rel="noopener">${escapeHtml(p.label)}</a>`).join(" ");
+
   const gallery = (prod.media||[]).map((m,i)=>{
+    const title = escapeAttr(m.alt || prod.title || "Media");
     if(m.type==="video"){
-      return `<div class="thumb" data-idx="${i}" data-kind="video" data-src="${escapeAttr(m.src)}" data-title="${escapeAttr(m.alt||prod.title)}">
-                <img src="${escapeAttr(m.poster||m.src)}" alt="${escapeAttr(m.alt||"Video")}" loading="lazy"><div class="badge">Video</div>
+      // use poster for thumbnail; if none, show a neutral gradient card
+      const poster = m.poster ? `<img src="${escapeAttr(m.poster)}" alt="${title}" loading="lazy">` :
+        `<img src="data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'><rect width=\'100%\' height=\'100%\' fill=\'#0b1431\'/><text x=\'50%\' y=\'52%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'#9aa7c7\' font-family=\'monospace\' font-size=\'18\'>Video</text></svg>')}" alt="${title}">`;
+      return `<div class="thumb" data-idx="${i}" data-kind="video" data-src="${escapeAttr(m.src)}" data-title="${title}">
+                ${poster}
+                <div class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+                <div class="badge">Video</div>
               </div>`;
     }else{
-      return `<div class="thumb" data-idx="${i}" data-kind="image" data-src="${escapeAttr(m.src)}" data-title="${escapeAttr(m.alt||prod.title)}">
-                <img src="${escapeAttr(m.src)}" alt="${escapeAttr(m.alt||"Image")}" loading="lazy">
+      return `<div class="thumb" data-idx="${i}" data-kind="image" data-src="${escapeAttr(m.src)}" data-title="${title}">
+                <img src="${escapeAttr(m.src)}" alt="${title}" loading="lazy">
               </div>`;
     }
   }).join("");
 
   result.innerHTML = `
-  <div class="entry resultCard">
-    <div style="width:100%">
-      <div class="row" style="justify-content:space-between; align-items:flex-start">
-        <div>
-          <h2 style="margin:0 0 6px 0">${escapeHtml(prod.title)}</h2>
-          <div class="bigUnit">Unit #${unitStr}</div>
+  <div class="entry resultCard" style="display:block">
+    <div class="product-grid">
+      <div>
+        <div class="row" style="justify-content:space-between; align-items:flex-start; margin-bottom:6px">
+          <div>
+            <h2 style="margin:0 0 6px 0; font-family:Orbitron; letter-spacing:.4px">${escapeHtml(prod.title || "Product")}</h2>
+            <div class="bigUnit">Unit #${unitStr}</div>
+          </div>
+          <div class="row">
+            <a class="btn small" style="--g1:var(--b);--g2:var(--a)" href="${escapeAttr(etsyUrl)}" target="_blank" rel="noopener">
+              View on Etsy
+            </a>
+            <a class="btn ghost small" href="${escapeAttr(reviewUrl)}" target="_blank" rel="noopener">Leave Review</a>
+          </div>
         </div>
-        <div class="row">
-          <a class="btn" style="text-decoration:none" href="${mailtoLink(prod.title, code, unitStr)}">Request Support</a>
-          <a class="btn" style="text-decoration:none" href="${escapeAttr(REVIEW_URL)}" target="_blank" rel="noopener">Leave Review</a>
-        </div>
+
+        <div class="hr"></div>
+
+        ${gallery ? `<div class="gallery" id="gallery">${gallery}</div>` : `<div class="muted">No media yet.</div>`}
+
+        ${prod.descriptionMD ? `<div class="hr"></div><h3 style="margin:8px 0 6px; font-family:Orbitron">Description</h3><div>${mdToHtml(prod.descriptionMD)}</div>` : ""}
+
+        ${(prod.features && prod.features.length) ? `<div class="hr"></div><h3 style="margin:8px 0 6px; font-family:Orbitron">Features</h3><div class="features">${feats}</div>` : ""}
+
+        ${prod.usageMD ? `<div class="hr"></div><h3 style="margin:8px 0 6px; font-family:Orbitron">How to Use</h3><div>${mdToHtml(prod.usageMD)}</div>` : ""}
+
+        ${(prod.perks && prod.perks.length) ? `<div class="hr"></div><h3 style="margin:8px 0 6px; font-family:Orbitron">Perks</h3><div class="row">${perks}</div>` : ""}
+
+        ${prod.hasGame ? `<div class="hr"></div><h3 style="margin:8px 0 6px; font-family:Orbitron">Mini Game</h3><div id="gameArea" class="entry" style="justify-content:center">Coming soon for this item.</div>` : ""}
       </div>
 
-      <div class="hr"></div>
+      <aside class="aside">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px">
+          <strong style="font-family:Orbitron">Tags</strong>
+          <a href="#" class="btn ghost small" onclick="goHome(event)">Home</a>
+        </div>
+        <div class="tags">${tags || `<span class="muted">No tags</span>`}</div>
 
-      ${gallery ? `<div class="gallery" id="gallery">${gallery}</div>` : `<div class="muted">No media yet.</div>`}
+        <div class="hr"></div>
 
-      ${prod.descriptionMD ? `<div class="hr"></div><h3 style="margin:4px 0 6px">Description</h3><div>${mdToHtml(prod.descriptionMD)}</div>` : ""}
-
-      ${(prod.features && prod.features.length) ? `<div class="hr"></div><h3 style="margin:4px 0 6px">Features</h3><div class="row">${feats}</div>` : ""}
-
-      ${prod.usageMD ? `<div class="hr"></div><h3 style="margin:4px 0 6px">How to Use</h3><div>${mdToHtml(prod.usageMD)}</div>` : ""}
-
-      ${(prod.perks && prod.perks.length) ? `<div class="hr"></div><h3 style="margin:4px 0 6px">Perks</h3><div class="row">${perks}</div>` : ""}
-
-      ${prod.hasGame ? `<div class="hr"></div><h3 style="margin:4px 0 6px">Mini Game</h3><div id="gameArea" class="entry" style="justify-content:center">Coming soon for this item.</div>` : ""}
+        <div class="grid" style="gap:8px">
+          ${supportEmail ? `<a class="btn small" style="--g1:var(--d);--g2:var(--c)" href="${mailtoLink(prod.title || 'Product', code, unitStr, supportEmail)}">Request Support</a>` : ``}
+          <a class="btn ghost small" href="${escapeAttr(reviewUrl)}" target="_blank" rel="noopener">Leave Review</a>
+          <a class="btn ghost small" href="${escapeAttr(etsyUrl)}" target="_blank" rel="noopener">View on Etsy</a>
+        </div>
+      </aside>
     </div>
   </div>`;
 
   wireGallery(prod);
 }
 
-function mailtoLink(title, code, unitStr){
+function mailtoLink(title, code, unitStr, email){
   const body = encodeURIComponent(`Support — ${title}\nCode: ${code}\nUnit: #${unitStr}\n\nIssue:\n`);
-  return `mailto:${encodeURIComponent(SUPPORT_EMAIL)}?subject=${encodeURIComponent("Support Request")}&body=${body}`;
+  return `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent("Support Request")}&body=${body}`;
 }
 
 function escapeHtml(s){ return (s||"").replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m])); }
@@ -415,17 +548,18 @@ function escapeAttr(s){ return escapeHtml(String(s)).replace(/"/g, '&quot;'); }
 
 /* Gallery lightbox */
 const lb = $("#lightbox"), lbMedia=$("#lbMedia"), lbTitle=$("#lbTitle"), lbClose=$("#lbClose");
-lbClose.addEventListener("click", ()=> lb.classList.remove("show"));
-lb.addEventListener("click", (e)=>{ if(e.target===lb) lb.classList.remove("show"); });
+lbClose.addEventListener("click", ()=> closeLb());
+lb.addEventListener("click", (e)=>{ if(e.target===lb) closeLb(); });
+function closeLb(){ const vid = lbMedia.querySelector('video'); if(vid){ vid.pause(); } lb.classList.remove("show"); }
 
 function wireGallery(prod){
   const g = $("#gallery"); if(!g) return;
   g.querySelectorAll(".thumb").forEach(th=>{
     th.addEventListener("click", ()=>{
-      const kind = th.dataset.kind, src = th.dataset.src, title = th.dataset.title || prod.title;
+      const kind = th.dataset.kind, src = th.dataset.src, title = th.dataset.title || prod.title || "Media";
       lbTitle.textContent = title;
       lbMedia.innerHTML = (kind==="video")
-        ? `<video controls src="${escapeAttr(src)}"></video>`
+        ? `<video controls playsinline src="${escapeAttr(src)}"></video>`
         : `<img src="${escapeAttr(src)}" alt="${escapeAttr(title)}">`;
       lb.classList.add("show");
     });
@@ -441,7 +575,7 @@ function populateAdminProducts(){
     productSelect.appendChild(o);
   });
 }
-btnGen.addEventListener("click", ()=>{
+btnGen?.addEventListener("click", ()=>{
   const pid = parseInt(productSelect.value,10);
   let unit = parseInt(unitNumber.value,10);
   if(Number.isNaN(unit) || unit<0){ alert("Enter a valid unit number (0 or higher)."); return; }
@@ -451,10 +585,14 @@ btnGen.addEventListener("click", ()=>{
 
 /* Small UX */
 function shake(el){ el.style.transition="transform .08s"; let i=0; const j=setInterval(()=>{ el.style.transform=`translateX(${(i%2?1:-1)*4}px)`; if(++i>8){clearInterval(j); el.style.transform="";}},40); }
+function goHome(e){ e?.preventDefault(); show("#lookup"); setActive("home"); }
 
 /* Boot */
 (async function init(){
   await loadProducts();
+  // Nav handlers after load to ensure feedback link updated
+  navHome.addEventListener("click", goHome);
+  document.getElementById('aboutBack')?.addEventListener("click", goHome);
   setActive("home");
   setTimeout(()=> codeInput.focus(), 300);
 })();

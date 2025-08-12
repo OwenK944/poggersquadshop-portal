@@ -1,20 +1,163 @@
 {
   "unitPad": 4,
+  "supportEmail": "support@thepoggersquad.shop",
+  "reviewUrl": "PASTE_SHOP_REVIEW_URL",
+  "feedbackUrl": "PASTE_FEEDBACK_URL",
   "products": [
     {
-      "id": 10,
-      "title": "3D-Printed Coaster Set (Synthwave)",
-      "features": ["TPU feet", "Matte PLA+", "Heat insert", "Retro gradient"],
-      "descriptionMD": "Stylish **PLA+** coasters with a synthwave flair.",
-      "usageMD": "Use on flat surfaces only.",
+      "id": 201,
+      "title": "UNDO | Fidget Keychain 3D Print STL Files",
+      "tags": ["digital", "STL", "3D print", "keychain", "fidget"],
+      "features": [
+        "Parametric-friendly STL set",
+        "Prints fast on most FDM printers",
+        "Tuned for low stringing",
+        "Snap/press-fit stem"
+      ],
+      "descriptionMD": "Digital download of the **UNDO** fidget keychain. Optimized STLs for standard 0.4mm nozzles.",
+      "usageMD": "Slice at 0.2mm layer height, 2–3 walls. PLA+ recommended. Add a keyring post-print.",
       "perks": [
-        { "label": "Free Wallpaper", "href": "https://example.com/wallpaper" }
+        { "label": "Build guide (PDF)", "href": "assets/201/guide.pdf" }
       ],
       "media": [
-        { "type": "image", "src": "https://via.placeholder.com/800x600.png?text=Coaster+1" },
-        { "type": "image", "src": "https://via.placeholder.com/800x600.png?text=Coaster+2" },
-        { "type": "video", "src": "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4" }
+        { "type": "image", "src": "assets/201/cover.jpg", "alt": "UNDO STL cover" },
+        { "type": "image", "src": "assets/201/02.jpg", "alt": "Preview angle" },
+        { "type": "video", "src": "assets/201/clip.mp4", "poster": "assets/201/poster.jpg", "alt": "Print timelapse" }
       ],
+      "etsyUrl": "https://www.etsy.com/listing/PASTE_ID_UNDO_STL",
+      "hasGame": false
+    },
+    {
+      "id": 202,
+      "title": "The Null Point Meta 1: Ultra-Light Mouse | Complete Kit",
+      "tags": ["mouse", "ultralight", "kit", "mod", "null point meta"],
+      "features": [
+        "Complete ready-to-run kit",
+        "Super-light chassis",
+        "Pre-fitted components",
+        "Balanced cable routing"
+      ],
+      "descriptionMD": "Meta 1 **Complete Kit** — assembled/ready out of the box. Built for speed and control.",
+      "usageMD": "Plug in via USB, adjust DPI in your software. See included quick-start for grip tips.",
+      "perks": [
+        { "label": "Spare feet (PDF template)", "href": "assets/202/feet-template.pdf" },
+        { "label": "Owner wallpaper", "href": "assets/202/wallpaper.png" }
+      ],
+      "media": [
+        { "type": "image", "src": "assets/202/cover.jpg", "alt": "Meta 1 complete kit" },
+        { "type": "image", "src": "assets/202/02.jpg", "alt": "Angle view" },
+        { "type": "video", "src": "assets/202/clip.mp4", "poster": "assets/202/poster.jpg", "alt": "Spin demo" }
+      ],
+      "etsyUrl": "https://www.etsy.com/listing/PASTE_ID_META1_COMPLETE",
+      "hasGame": false
+    },
+    {
+      "id": 203,
+      "title": "THE FINALS Charm | Proof of Entry Keychain Replacement",
+      "tags": ["keychain", "the finals", "charm", "replacement", "fan merch"],
+      "features": [
+        "Crisp logo geometry",
+        "Durable PETG/PLA+ option",
+        "Matte surface finish",
+        "Steel keyring included"
+      ],
+      "descriptionMD": "Replacement **Proof of Entry** charm for fans. Clean, bold edge highlights.",
+      "usageMD": "Attach to your keys or bag. Avoid harsh solvents.",
+      "perks": [],
+      "media": [
+        { "type": "image", "src": "assets/203/cover.jpg", "alt": "Proof of Entry charm" },
+        { "type": "image", "src": "assets/203/02.jpg", "alt": "Detail close-up" }
+      ],
+      "etsyUrl": "https://www.etsy.com/listing/PASTE_ID_FOE_CHARM",
+      "hasGame": false
+    },
+    {
+      "id": 204,
+      "title": "Retrowave Sunsets | Keychain",
+      "tags": ["keychain", "retrowave", "synthwave", "sunset", "retro"],
+      "features": [
+        "Layered retro-sun design",
+        "High-contrast colorway",
+        "Pocket-friendly fillets",
+        "Heat-resistant material"
+      ],
+      "descriptionMD": "Retro **synthwave** sunset keychain with layered geometry and soft edges.",
+      "usageMD": "Attach to keys. For longevity, avoid extended direct sunlight/heat.",
+      "perks": [
+        { "label": "Phone wallpaper", "href": "assets/204/wallpaper.png" }
+      ],
+      "media": [
+        { "type": "image", "src": "assets/204/cover.jpg", "alt": "Retrowave sunset keychain" },
+        { "type": "image", "src": "assets/204/02.jpg", "alt": "Angle view" },
+        { "type": "video", "src": "assets/204/clip.mp4", "poster": "assets/204/poster.jpg", "alt": "Short promo" }
+      ],
+      "etsyUrl": "https://www.etsy.com/listing/PASTE_ID_RETROWAVE",
+      "hasGame": false
+    },
+    {
+      "id": 205,
+      "title": "THE FINALS Charm | Golden Opportunity Keychain",
+      "tags": ["keychain", "the finals", "charm", "golden opportunity", "fan merch"],
+      "features": [
+        "Gold-look material option",
+        "Embossed text detail",
+        "Comfort radius edges",
+        "Split ring included"
+      ],
+      "descriptionMD": "Golden Opportunity **THE FINALS** charm—clean embossed lettering and durable finish.",
+      "usageMD": "Normal keychain use. Avoid scraping against rough metal surfaces.",
+      "perks": [],
+      "media": [
+        { "type": "image", "src": "assets/205/cover.jpg", "alt": "Golden Opportunity charm" },
+        { "type": "image", "src": "assets/205/02.jpg", "alt": "Detail" }
+      ],
+      "etsyUrl": "https://www.etsy.com/listing/PASTE_ID_GO_CHARM",
+      "hasGame": false
+    },
+    {
+      "id": 206,
+      "title": "UNDO | The Ctrl + Z Fidget Keychain",
+      "tags": ["keychain", "fidget", "ctrl z", "3d print", "undo"],
+      "features": [
+        "Tactile keycap-style design",
+        "Comfort chamfers",
+        "Steel ring included",
+        "Pocket-safe profile"
+      ],
+      "descriptionMD": "Physical **UNDO** fidget keychain with keycap-inspired look and feel.",
+      "usageMD": "Attach to keys; fidget responsibly 🫡",
+      "perks": [
+        { "label": "Sticker sheet (PDF)", "href": "assets/206/stickers.pdf" }
+      ],
+      "media": [
+        { "type": "image", "src": "assets/206/cover.jpg", "alt": "UNDO keychain cover" },
+        { "type": "image", "src": "assets/206/02.jpg", "alt": "Alternate angle" },
+        { "type": "video", "src": "assets/206/clip.mp4", "poster": "assets/206/poster.jpg", "alt": "Spin / fidget demo" }
+      ],
+      "etsyUrl": "https://www.etsy.com/listing/PASTE_ID_UNDO_KEYCHAIN",
+      "hasGame": false
+    },
+    {
+      "id": 207,
+      "title": "The Null Point Meta 1: Ultra-Light Mouse | Mod Kit",
+      "tags": ["mouse", "mod kit", "null point meta", "ultralight", "diy"],
+      "features": [
+        "DIY mod kit components",
+        "Lightweight shell parts",
+        "Cable management aids",
+        "Quick-start overlay"
+      ],
+      "descriptionMD": "**Mod Kit** for the Meta 1. Bring your own base mouse—see listing for compatibility.",
+      "usageMD": "Follow the included quick-start PDF. Take it slow; test after each step.",
+      "perks": [
+        { "label": "Quick-start (PDF)", "href": "assets/207/quickstart.pdf" }
+      ],
+      "media": [
+        { "type": "image", "src": "assets/207/cover.jpg", "alt": "Meta 1 mod kit" },
+        { "type": "image", "src": "assets/207/02.jpg", "alt": "Layout / contents" },
+        { "type": "video", "src": "assets/207/clip.mp4", "poster": "assets/207/poster.jpg", "alt": "Install overview" }
+      ],
+      "etsyUrl": "https://www.etsy.com/listing/PASTE_ID_META1_MOD",
       "hasGame": false
     }
   ]
