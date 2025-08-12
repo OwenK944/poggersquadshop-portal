@@ -1,10 +1,10 @@
 {
   "unitPad": 4,
 
-  "reviewUrl": "PASTE_SHOP_REVIEW_URL",
-  "supportUrl": "PASTE_GLOBAL_SUPPORT_URL", 
-  "feedbackUrl": "PASTE_PORTAL_FEEDBACK_URL",
-  "aboutSupportUrl": "PASTE_GLOBAL_SUPPORT_URL",
+  "reviewUrl": "https://www.etsy.com/shop/ThePoggerSquad",
+  "supportUrl": "https://www.etsy.com/shop/ThePoggerSquad", 
+  "feedbackUrl": "https://www.etsy.com/shop/ThePoggerSquad",
+  "aboutSupportUrl": "https://www.etsy.com/shop/ThePoggerSquad",
 
   "products": [
     {
@@ -17,7 +17,7 @@
         "Tuned for low stringing",
         "Snap/press-fit stem"
       ],
-      "descriptionMD": "Digital download of the **UNDO** fidget keychain. Optimized STLs for 0.4mm nozzles.",
+      "descriptionMD": "Digital download of the UNDO fidget keychain. Optimized STLs for 0.4mm nozzles.",
       "usageMD": "Slice at 0.2mm layer height, 2–3 walls. PLA+ recommended. Add a keyring post-print.",
       "perks": [
         { "label": "Build Guide (PDF)", "href": "assets/201/guide.pdf" }
@@ -147,10 +147,11 @@
         "Tactile keycap-style design",
         "Comfort chamfers",
         "Steel ring included",
-        "Pocket-safe profile"
+        "Pocket-safe profile",
+        "Hot-swappable switches"
       ],
-      "descriptionMD": "Physical **UNDO** fidget keychain with keycap-inspired look and feel.",
-      "usageMD": "Attach to keys; fidget responsibly 🫡",
+      "descriptionMD": "Undo anything, undo everything, and get that satisfying click every time. This retro keyboard inspired fidget will assist with all of your undone needs.",
+      "usageMD": "Click keys as often as needed. To hot swap switches, pull off keycaps, carefully remove switches, and then insert new switches and replace keycaps. Works with most mechanical switches.",
       "perks": [
         { "label": "Sticker Sheet (PDF)", "href": "assets/206/stickers.pdf" }
       ],
@@ -158,7 +159,7 @@
         { "label": "Care & Warranty", "href": "assets/common/warranty.pdf" }
       ],
       "media": [
-        { "type": "image", "src": "assets/206/cover.jpg", "alt": "UNDO keychain cover" },
+        { "type": "image", "src": "data\product media\UNDO Title.png", "alt": "UNDO keychain cover" },
         { "type": "image", "src": "assets/206/02.jpg", "alt": "Alternate angle" },
         { "type": "video", "src": "assets/206/clip.mp4", "poster": "assets/206/poster.jpg", "alt": "Spin / fidget demo" }
       ],
