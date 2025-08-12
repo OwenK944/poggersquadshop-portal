@@ -583,7 +583,7 @@ btnGen?.addEventListener("click", ()=>{
 
 /* Helpers */
 function escapeHtml(s){ return (s||"").replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;"," >":"&gt;","\"":"&quot;","'":"&#39;" }[m])); }
-function escapeAttr(s){ return (s==null?"":String(s)).replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m]); }
+function escapeAttr(s){ return (s==null?"":String(s)).replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m])); }
 function shake(el){ el.style.transition="transform .08s"; let i=0; const j=setInterval(()=>{ el.style.transform=`translateX(${(i%2?1:-1)*4}px)`; if(++i>8){clearInterval(j); el.style.transform="";}},40); }
 
 /* Boot */
