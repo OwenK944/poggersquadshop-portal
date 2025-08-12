@@ -220,7 +220,7 @@
   <div class="shell">
     <header>
       <div class="brand"><h1>ThePoggerSquad Shop</h1></div>
-      <div class="subGuide">Your unique code is on the card inside your package. Enter it to unlock product media, your unit number, perks, and support.</div>
+      <div class="subGuide">This page is where you can input your unique product code. The code can be found on the product page included in the package. Enter your code to unlock your unique unit number, media, perks, resources, and support!</div>
       <nav class="nav">
         <a href="#" id="navHome" class="active">Home</a>
         <a href="#" id="navAbout">About</a>
@@ -233,7 +233,7 @@
         <div class="center">
           <h2 id="lookupTitle" class="visually-hidden">Enter Product Code</h2>
           <div class="entry entry--wide">
-            <input id="codeInput" type="text" placeholder="Type Code Here (e.g., Q7A-5K2-JD)" autocomplete="off" inputmode="latin-prose" aria-label="Product code"/>
+            <input id="codeInput" type="text" placeholder="Type Your Code Here" autocomplete="off" inputmode="latin-prose" aria-label="Product code"/>
             <button class="btn" id="btnOpen" aria-label="Open product">Open</button>
           </div>
         </div>
@@ -277,30 +277,30 @@
       <section id="about" aria-labelledby="aboutTitle">
         <div class="aboutWrap">
           <div class="aboutHero">
-            <h2 id="aboutTitle">About ThePoggerSquad Shop</h2>
-            <p style="margin:0">Retro vibes, modern design. We build small-batch gear, 3D prints, and art that feels premium without the price tag.</p>
+            <h2 id="aboutTitle">About ThePoggerSquad Shop On Etsy</h2>
+            <p style="margin:0">Tech, Games, & Retro. We custom design and produce quality products with one thing in mind: Coolness.</p>
           </div>
 
           <div class="aboutGrid">
             <div class="aboutCard">
-              <h3>What this portal does</h3>
+              <h3>What is this web portal for?</h3>
               <ul class="aboutList">
                 <li>Shows verified product info & media for your exact unit.</li>
-                <li>Gives you quick <strong>How to Use</strong> and care tips.</li>
+                <li>Gives you quick how-to and care tips.</li>
                 <li>Links you to perks, downloads, and support.</li>
               </ul>
             </div>
             <div class="aboutCard">
-              <h3>Find your code</h3>
+              <h3>Where to find your code:</h3>
               <ul class="aboutList">
-                <li>Inside the box on a small card or label.</li>
-                <li>Format looks like <code>Q7A-5K2-JD</code> (example only).</li>
-                <li>Enter it on the Home screen to unlock your page.</li>
+                <li>Look for it on the product info sheet</li>
+                <li>Format looks like <code>Q7A-5K2-JD</code>.</li>
+                <li>Enter it on the Home screen to unlock your product page.</li>
               </ul>
             </div>
             <div class="aboutCard">
-              <h3>Visit the shop</h3>
-              <p>Browse current drops and restocks:</p>
+              <h3>Visit our Etsy shop:</h3>
+              <p>Browse current drops, new gear, awesome loot, and more cool stuff:</p>
               <p><a href="https://www.etsy.com/shop/ThePoggerSquad" class="btn small" target="_blank" rel="noopener">Visit on Etsy</a></p>
             </div>
           </div>
@@ -308,17 +308,17 @@
           <div class="aboutGrid">
             <div class="aboutCard">
               <h3>Support</h3>
-              <p>Need help? Use the <em>Request Support</em> button on your product page or open our support portal:</p>
+              <p>Need help? Use the <em>Request Support</em> button on your product page or open our storefront, where you can contact us on Etsy:</p>
               <p><a id="aboutSupport" href="#" class="btn ghost small" target="_blank" rel="noopener">Open Support</a></p>
             </div>
             <div class="aboutCard">
-              <h3>Feedback</h3>
-              <p>Have ideas for this portal or found a bug?</p>
+              <h3>Portal Feedback</h3>
+              <p>Have ideas for this portal or found a bug? Contact us on Etsy here:</p>
               <p><a id="feedbackLink" href="#" class="btn small" target="_blank" rel="noopener">Leave Portal Feedback</a></p>
             </div>
             <div class="aboutCard">
               <h3>Privacy</h3>
-              <p>No account required. Codes only reveal product details and unit metadata—no personal info is stored here.</p>
+              <p>No account required. Codes only reveal product details and unit metadata—no personal info is stored.</p>
             </div>
           </div>
 
@@ -346,10 +346,10 @@
 const SECRET = "CHANGE_ME_SECRET_SALT";
 const ADMIN_TRIGGER_CODE = "RL098ight";
 
-let SUPPORT_URL_GLOBAL = ""; // optional global fallback if a product has no supportUrl
-let REVIEW_URL_GLOBAL = "";  // optional global fallback
-let FEEDBACK_URL = "";       // About page feedback
-let ABOUT_SUPPORT_URL = "";  // About page "Open Support" link
+let SUPPORT_URL_GLOBAL = "https://www.etsy.com/shop/ThePoggerSquad"; // optional global fallback if a product has no supportUrl
+let REVIEW_URL_GLOBAL = "https://www.etsy.com/shop/ThePoggerSquad#reviews";  // optional global fallback
+let FEEDBACK_URL = "https://www.etsy.com/shop/ThePoggerSquad";       // About page feedback
+let ABOUT_SUPPORT_URL = "https://www.etsy.com/shop/ThePoggerSquad";  // About page "Open Support" link
 
 /* =========================
    CODEC (Crockford base32 + obfuscation)
