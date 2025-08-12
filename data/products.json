@@ -131,11 +131,11 @@
         { "label": "Obtain In Game", "href": "data/assets/205/getgolden.pdf" }
       ],
       "resources": [
-        { "label": "Material & Care", "href": "assets/common/material-care.pdf" }
+        { "label": "Material & Care", "href": "data/assets/205/goldencare.pdf" }
       ],
       "media": [
-        { "type": "image", "src": "assets/205/cover.jpg", "alt": "Golden Opportunity charm" },
-        { "type": "image", "src": "assets/205/02.jpg", "alt": "Detail" }
+        { "type": "image", "src": "data/assets/205/goldenmain.jpg", "alt": "Golden Opportunity charm" },
+        { "type": "image", "src": "data/assets/205/goldeningame.png", "alt": "Detail" }
       ],
       "etsyUrl": "https://www.etsy.com/listing/1754558053/the-finals-charm-golden-opportunity",
       "hasGame": false
