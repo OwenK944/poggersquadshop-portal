@@ -159,7 +159,7 @@
         { "label": "Care & Warranty", "href": "assets/common/warranty.pdf" }
       ],
       "media": [
-        { "type": "image", "src": "assets/206/UNDO Title.png", "alt": "UNDO keychain cover" },
+        { "type": "image", "src": "assets/206/undotitle.png", "alt": "UNDO keychain cover" },
         { "type": "image", "src": "assets/206/02.jpg", "alt": "Alternate angle" },
         { "type": "video", "src": "assets/206/clip.mp4", "poster": "assets/206/poster.jpg", "alt": "Spin / fidget demo" }
       ],
