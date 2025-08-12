@@ -92,6 +92,22 @@
   75%, 100% { --bgA:var(--pal1a); --bgB:var(--pal1b); }
 }
 
+/* Mobile: stack action buttons and make them full-width */
+@media (max-width: 640px){
+  .product-header{ align-items: stretch; }
+  .btnRow{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .btnRow .btn{
+    width:100%;
+    justify-content:center;
+  }
+}
+
+
   /* ===== Frame ===== */
   .wrap{position:relative; width:min(1040px,92vw); margin:0 auto; min-height:100%; display:grid; place-items:center}
   .shell{
@@ -186,58 +202,85 @@
     display:flex; gap:12px; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; margin-bottom:10px
   }
   .product-title{margin:0; font-family:Orbitron; letter-spacing:.4px}
-/* Big neon unit badge */
+/* === Neon Unit badge (big + animated) === */
 .unitBadge{
+  --gl1: var(--a);
+  --gl2: var(--b);
   position:relative;
   display:inline-block;
-  margin-top:8px;
+  margin-top:10px;
+  padding:12px 18px;                 /* bigger pill */
+  border-radius:999px;
   font-family:Orbitron, system-ui;
   font-weight:900;
-  font-size:18px;            /* bigger text */
-  letter-spacing:.8px;
-  padding:10px 16px;         /* bigger pill */
-  border-radius:999px;
+  font-size:20px;                    /* larger text */
+  letter-spacing:.9px;
   color:#eaf2ff;
 
-  /* inner surface */
-  background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.03));
+  background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.05));
   border:1px solid rgba(255,255,255,.28);
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,.04) inset,
-    0 8px 28px rgba(8,247,254,.22),
-    0 0 22px rgba(255,43,209,.18);
+  backdrop-filter: blur(8px) saturate(1.2);
+  overflow:hidden;                   /* clips the sheen inside */
+  isolation:isolate;                 /* lets ::before glow sit under */
+  z-index:0;
 
-  /* gentle pulsing */
-  animation:glowPulse 3.6s ease-in-out infinite;
+  /* animated glow shadow */
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.05) inset,
+    0 10px 28px color-mix(in oklab, var(--gl1) 28%, transparent),
+    0 0 34px  color-mix(in oklab, var(--gl2) 24%, transparent);
+
+  animation: unitGlowShift 8s linear infinite;
 }
 
-/* moving sheen highlight */
-.unitBadge::after{
+/* swirling under-glow (behind the glass, clipped by the pill) */
+.unitBadge::before{
   content:"";
-  position:absolute; inset:0;
+  position:absolute;
+  inset:-35%;
   border-radius:inherit;
-  background:linear-gradient(115deg, transparent 0%, rgba(255,255,255,.45) 10%, transparent 20%);
-  filter: blur(1px);
-  transform: translateX(-130%);
-  animation: sheen 4.5s ease-in-out infinite;
+  background: conic-gradient(
+    from var(--spin, 0deg),
+    var(--a), var(--b), var(--c), var(--a)
+  );
+  filter: blur(22px) saturate(1.3);
+  opacity:.55;
+  z-index:-1;                        /* sits under the text */
+  animation: unitSpin 7.5s linear infinite;
   pointer-events:none;
 }
 
-@keyframes glowPulse{
-  0%,100%{ box-shadow:
-    0 0 0 1px rgba(255,255,255,.04) inset,
-    0 8px 28px rgba(8,247,254,.18),
-    0 0 18px rgba(255,43,209,.14); }
-  50%{ box-shadow:
-    0 0 0 1px rgba(255,255,255,.06) inset,
-    0 10px 34px rgba(8,247,254,.30),
-    0 0 28px rgba(255,43,209,.24); }
+/* narrow, clipped sheen sweep */
+.unitBadge::after{
+  content:"";
+  position:absolute;
+  top:-45%; bottom:-45%;
+  left:-40%;
+  width:42%;
+  border-radius:inherit;
+  background: linear-gradient(115deg,
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,.65) 47%,
+      rgba(255,255,255,0) 55%);
+  filter: blur(1px);
+  transform: skewX(-18deg);
+  animation: unitSheen 3.6s ease-in-out infinite;
+  pointer-events:none;
 }
 
-@keyframes sheen{
-  0%   { transform: translateX(-130%); opacity:.0 }
-  12%  { transform: translateX(130%);  opacity:.6 }
-  100% { transform: translateX(130%);  opacity:0 }
+@keyframes unitSpin{
+  to{ --spin: 360deg; }
+}
+@keyframes unitGlowShift{
+  0%,20%   { --gl1: var(--a); --gl2: var(--b); }
+  33%,53%  { --gl1: var(--c); --gl2: var(--a); }
+  66%,86%  { --gl1: var(--b); --gl2: var(--d); }
+  100%     { --gl1: var(--a); --gl2: var(--b); }
+}
+@keyframes unitSheen{
+  0%   { transform: translateX(-120%) skewX(-18deg); opacity:0; }
+  18%  { transform: translateX(125%)  skewX(-18deg); opacity:.55; }
+  100% { transform: translateX(125%)  skewX(-18deg); opacity:0; }
 }
 
 
